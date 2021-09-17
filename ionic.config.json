@@ -1,0 +1,10 @@
+{
+  "name": "app-stracktMaps",
+  "integrations": {
+    "capacitor": {
+      "enabled": false
+    },
+    "cordova": {}
+  },
+  "type": "angular"
+}
