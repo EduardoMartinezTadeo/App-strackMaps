@@ -1,9 +1,52 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>menu-tabs</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-row>
+            <ion-col size="6">
+                <ion-img src="assets/imgs/logo.png"></ion-img>
+            </ion-col>
+            <ion-col size="6">
+                <ion-item lines="none">
+                    <ion-avatar slot="end">
+                        <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+                    </ion-avatar>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+    <super-tabs>
+        <super-tabs-toolbar slot="top" color="primary">
+            <super-tab-button>
+                <ion-icon name="home" color="danger"></ion-icon>
+                <ion-label class="subtitulo">Inicio</ion-label>
+            </super-tab-button>
+            <super-tab-button>
+                <ion-icon name="clipboard" color="danger"></ion-icon>
+                <ion-label class="subtitulo">Historial</ion-label>
+            </super-tab-button>
+            <super-tab-button>
+                <ion-icon name="cog" color="danger"></ion-icon>
+                <ion-label class="subtitulo">Ajustes</ion-label>
+            </super-tab-button>
+        </super-tabs-toolbar>
+        <super-tabs-container>
+            <super-tab>
+                <ion-content>
+                    <ion-nav [root]="tabInicio"></ion-nav>
+                </ion-content>
+            </super-tab>
+            <super-tab>
+                <ion-content>
+                    <ion-nav [root]="tabHistorial"></ion-nav>
+                </ion-content>
+            </super-tab>
+            <super-tab>
+                <ion-content>
+                    <ion-nav [root]="tabAjustes"></ion-nav>
+                </ion-content>
+            </super-tab>
+        </super-tabs-container>
+    </super-tabs>
 </ion-content>

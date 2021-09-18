@@ -1,9 +1,39 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>iniciar-sesion</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content class="ion-padding">
+    <ion-row class="ion-text-center separacion-img">
+        <ion-img src="assets/imgs/logo_blanco.png" class="img"></ion-img>
+    </ion-row>
 
-<ion-content>
-
+    <div class="login-section ion-padding">
+        <div class="heading ion-padding">
+            <p class="titulos p-titulo">Para continuar inicia sesión</p>
+        </div>
+        <div class="login-form ion-padding">
+            <form novalidate>
+                <div class="form-input">
+                    <ion-item>
+                        <ion-icon name="mail-outline"></ion-icon>
+                        <ion-label class="subtitulo">Correo electrónico</ion-label>
+                        <ion-input inputmode="email" class="texto" [(ngModel)]="informacion_Usuario.correo_electronico" name="correo" #correo="ngModel" required email></ion-input>
+                    </ion-item>
+                    <div *ngIf="campo1">
+                        <p color="danger" *ngIf="correo.errors" class="subtitulo p-validacion">Correo electrónico invalido</p>
+                    </div>
+                </div>
+                <div class="form-input">
+                    <ion-item>
+                        <ion-icon name="lock-closed-outline"></ion-icon>
+                        <ion-label class="subtitulo">Contraseña</ion-label>
+                        <ion-input [type]="showPassword ? 'text': 'password'" [(ngModel)]="informacion_Usuario.contrasena" name="contrasena" #contrasena="ngModel" class="texto" required pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{7,}"></ion-input>
+                        <ion-icon slot="end" [name]="passwordToggleIcon" (click)="togglePassword()" color="danger"></ion-icon>
+                    </ion-item>
+                    <div *ngIf="campo2">
+                        <p color="danger" *ngIf="contrasena.errors" class="subtitulo p-validacion">No es una contraseña valida</p>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="action-button ion-padding">
+            <ion-button size="medium" shape="round" class="login-button" expand="block" color="danger" class="subtitulo" (click)="validarCampos()">Iniciar Sesión</ion-button>
+        </div>
+    </div>
 </ion-content>

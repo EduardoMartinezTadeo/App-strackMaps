@@ -1,0 +1,81 @@
+ion-content {
+    --background: linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.1)), url("/assets/imgs/fondo_iniciarSesion.jpg") no-repeat center center / cover !important;
+}
+
+.separacion-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.img {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.login-section {
+    height: 72vh;
+    width: 100%;
+    max-width: 500px;
+    background: rgb(0, 53, 135);
+    background: linear-gradient(97deg, rgba(0, 53, 135, 0.6643032212885154) 0%, rgba(0, 53, 135, 0.4514180672268907) 51%, rgba(82, 63, 48, 0) 100%);
+    right: 0;
+    left: 0;
+    bottom: 0;
+    position: fixed;
+    margin: auto;
+    border-top-left-radius: 46px;
+    border-top-right-radius: 46px;
+}
+
+.heading {
+    margin-top: 20px;
+    h1 {
+        font-size: 1.6rem;
+        font-weight: bolder;
+    }
+    p {
+        margin-top: 20px;
+        font-size: 1rem;
+        font-weight: bolder;
+        color: #ffffff94;
+        text-align: center;
+    }
+}
+
+.login-form {
+    .form-input {
+        position: relative;
+        margin-bottom: 10px;
+        ion-item::part(native) {
+            padding-left: 0;
+            background-color: transparent !important;
+        }
+        ion-label {
+            position: absolute;
+            margin-left: 35px;
+            font-weight: bolder;
+            font-size: 15px;
+            top: 3px;
+        }
+        ion-input {
+            font-size: 13px;
+            --padding-start: 36px;
+            --padding-top: 36px;
+            color: #ffffff;
+        }
+    }
+}
+
+.p-validacion {
+    font-size: 13.5px;
+    color: #ff0011;
+}

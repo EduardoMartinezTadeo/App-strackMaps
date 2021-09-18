@@ -4,17 +4,15 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { InicioTabPageRoutingModule } from './inicio-tab-routing.module';
-
-import { InicioTabPage } from './inicio-tab.page';
+import { TabAjustesPage } from './tab-ajustes.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    IonicModule,
-    InicioTabPageRoutingModule
+    IonicModule
   ],
-  declarations: [InicioTabPage]
+  declarations: [TabAjustesPage],
+  entryComponents: [TabAjustesPage]
 })
-export class InicioTabPageModule {}
+export class TabAjustesPageModule {}

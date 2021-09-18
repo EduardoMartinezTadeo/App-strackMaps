@@ -1,0 +1,18 @@
+ion-content {
+    --background: linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.1)), url("/assets/imgs/fondo_offline.svg") no-repeat center center / cover !important;
+}
+
+.container {
+    -webkit-animation: slide-in-elliptic-top-bck .9s cubic-bezier(.25, .46, .45, .94) both;
+    animation: slide-in-elliptic-top-bck .9s cubic-bezier(.25, .46, .45, .94) both;
+}
+
+.img {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+}

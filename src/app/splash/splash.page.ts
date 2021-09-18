@@ -18,7 +18,7 @@ export class SplashPage implements OnInit {
   ionViewWillEnter(){
    setTimeout(() => {
      this.router.navigateByUrl('/iniciar-sesion');
-   }, 1500);
+   }, 1750);
   }
 
 }

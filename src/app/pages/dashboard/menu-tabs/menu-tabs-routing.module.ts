@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/naming-convention */
+import { SuperTabsModule } from '@ionic-super-tabs/angular';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -14,4 +16,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class MenuTabsPageRoutingModule {}
+export class MenuTabsPageRoutingModule { }

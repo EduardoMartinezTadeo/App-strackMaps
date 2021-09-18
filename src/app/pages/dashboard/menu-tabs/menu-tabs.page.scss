@@ -1,0 +1,23 @@
+ion-label {
+    text-transform: capitalize !important;
+}
+
+ion-img {
+    margin-top: 5px;
+    margin-left: 15px;
+    width: 95px;
+}
+
+ion-header {
+    ion-toolbar {
+        --background: rgb(243, 39, 53);
+        --background: linear-gradient( 287deg, rgba(243, 39, 53, 1) 0%, rgba(196, 30, 42, 0.43461134453781514) 100%);
+    }
+    ion-col {
+        ion-item {
+            --background: transparent;
+            --border-color: var(--ion-color-form, #ffffff);
+            color: #ffffff;
+        }
+    }
+}

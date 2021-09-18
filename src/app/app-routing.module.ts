@@ -16,16 +16,16 @@ const routes: Routes = [
     loadChildren: () => import('./pages/dashboard/menu-tabs/menu-tabs.module').then( m => m.MenuTabsPageModule)
   },
   {
-    path: 'inicio-tab',
-    loadChildren: () => import('./pages/dashboard/inicio-tab/inicio-tab.module').then( m => m.InicioTabPageModule)
-  },
-  {
     path: 'splash',
     loadChildren: () => import('./splash/splash.module').then( m => m.SplashPageModule)
   },
   {
     path: 'offline',
     loadChildren: () => import('./offline/offline.module').then( m => m.OfflinePageModule)
+  },
+  {
+    path: 'tab-inicio',
+    loadChildren: () => import('./pages/dashboard/tab-inicio/tab-inicio.module').then( m => m.TabInicioPageModule)
   },
 ];
 

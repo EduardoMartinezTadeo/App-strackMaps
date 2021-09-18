@@ -9,18 +9,209 @@
  * https://ionicframework.com/docs/layout/global-stylesheets
  */
 
+
 /* Core CSS required for Ionic components to work properly */
+
 @import "~@ionic/angular/css/core.css";
 
 /* Basic CSS for apps built with Ionic */
+
 @import "~@ionic/angular/css/normalize.css";
 @import "~@ionic/angular/css/structure.css";
 @import "~@ionic/angular/css/typography.css";
-@import '~@ionic/angular/css/display.css';
+@import "~@ionic/angular/css/display.css";
 
 /* Optional CSS utils that can be commented out */
+
 @import "~@ionic/angular/css/padding.css";
 @import "~@ionic/angular/css/float-elements.css";
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+@-webkit-keyframes bounce-in-top {
+    0% {
+        -webkit-transform: translateY(-500px);
+        transform: translateY(-500px);
+        -webkit-animation-timing-function: ease-in;
+        animation-timing-function: ease-in;
+        opacity: 0;
+    }
+    38% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+        -webkit-animation-timing-function: ease-out;
+        animation-timing-function: ease-out;
+        opacity: 1;
+    }
+    55% {
+        -webkit-transform: translateY(-65px);
+        transform: translateY(-65px);
+        -webkit-animation-timing-function: ease-in;
+        animation-timing-function: ease-in;
+    }
+    72% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+        -webkit-animation-timing-function: ease-out;
+        animation-timing-function: ease-out;
+    }
+    81% {
+        -webkit-transform: translateY(-28px);
+        transform: translateY(-28px);
+        -webkit-animation-timing-function: ease-in;
+        animation-timing-function: ease-in;
+    }
+    90% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+        -webkit-animation-timing-function: ease-out;
+        animation-timing-function: ease-out;
+    }
+    95% {
+        -webkit-transform: translateY(-8px);
+        transform: translateY(-8px);
+        -webkit-animation-timing-function: ease-in;
+        animation-timing-function: ease-in;
+    }
+    100% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+        -webkit-animation-timing-function: ease-out;
+        animation-timing-function: ease-out;
+    }
+}
+
+@keyframes bounce-in-top {
+    0% {
+        -webkit-transform: translateY(-500px);
+        transform: translateY(-500px);
+        -webkit-animation-timing-function: ease-in;
+        animation-timing-function: ease-in;
+        opacity: 0;
+    }
+    38% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+        -webkit-animation-timing-function: ease-out;
+        animation-timing-function: ease-out;
+        opacity: 1;
+    }
+    55% {
+        -webkit-transform: translateY(-65px);
+        transform: translateY(-65px);
+        -webkit-animation-timing-function: ease-in;
+        animation-timing-function: ease-in;
+    }
+    72% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+        -webkit-animation-timing-function: ease-out;
+        animation-timing-function: ease-out;
+    }
+    81% {
+        -webkit-transform: translateY(-28px);
+        transform: translateY(-28px);
+        -webkit-animation-timing-function: ease-in;
+        animation-timing-function: ease-in;
+    }
+    90% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+        -webkit-animation-timing-function: ease-out;
+        animation-timing-function: ease-out;
+    }
+    95% {
+        -webkit-transform: translateY(-8px);
+        transform: translateY(-8px);
+        -webkit-animation-timing-function: ease-in;
+        animation-timing-function: ease-in;
+    }
+    100% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+        -webkit-animation-timing-function: ease-out;
+        animation-timing-function: ease-out;
+    }
+}
+
+@-webkit-keyframes slide-in-elliptic-top-bck {
+    0% {
+        -webkit-transform: translateY(-600px) rotateX(30deg) scale(6.5);
+        transform: translateY(-600px) rotateX(30deg) scale(6.5);
+        -webkit-transform-origin: 50% 200%;
+        transform-origin: 50% 200%;
+        opacity: 0;
+    }
+    100% {
+        -webkit-transform: translateY(0) rotateX(0) scale(1);
+        transform: translateY(0) rotateX(0) scale(1);
+        -webkit-transform-origin: 50% -500px;
+        transform-origin: 50% -500px;
+        opacity: 1;
+    }
+}
+
+@keyframes slide-in-elliptic-top-bck {
+    0% {
+        -webkit-transform: translateY(-600px) rotateX(30deg) scale(6.5);
+        transform: translateY(-600px) rotateX(30deg) scale(6.5);
+        -webkit-transform-origin: 50% 200%;
+        transform-origin: 50% 200%;
+        opacity: 0;
+    }
+    100% {
+        -webkit-transform: translateY(0) rotateX(0) scale(1);
+        transform: translateY(0) rotateX(0) scale(1);
+        -webkit-transform-origin: 50% -500px;
+        transform-origin: 50% -500px;
+        opacity: 1;
+    }
+}
+
+ion-button {
+    text-transform: capitalize;
+}
+
+@font-face {
+    font-family: "Conv_Montserrat-Regular";
+    src: url("assets/fonts/Montserrat-Regular.eot");
+    src: local("☺"), url("assets/fonts/Montserrat-Regular.woff") format("woff"), url("assets/fonts/Montserrat-Regular.ttf") format("truetype"), url("assets/fonts/Montserrat-Regular.svg") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Conv_Montserrat-Medium';
+    src: url('assets/fonts/Montserrat-Medium.eot');
+    src: local('☺'), url('assets/fonts/Montserrat-Medium.woff') format('woff'), url('assets/fonts/Montserrat-Medium.ttf') format('truetype'), url('assets/fonts/Montserrat-Medium.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Conv_Montserrat-Bold';
+    src: url('assets/fonts/Montserrat-Bold.eot');
+    src: local('☺'), url('assets/fonts/Montserrat-Bold.woff') format('woff'), url('assets/fonts/Montserrat-Bold.ttf') format('truetype'), url('assets/fonts/Montserrat-Bold.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.titulos {
+    font-family: 'Conv_Montserrat-Bold';
+}
+
+.subtitulo {
+    font-family: 'Conv_Montserrat-Medium';
+}
+
+.texto {
+    font-family: 'Conv_Montserrat-Regular';
+}
+
+.alert-style {
+    --background: rgb(243, 39, 53);
+    --background: linear-gradient(287deg, rgba(243, 39, 53, 0.4962359943977591) 0%, rgba(0, 46, 109, 0.7287289915966386) 100%);
+    --spinner-color: rgb(235, 235, 235);
+    color: rgb(255, 255, 255);
+    font-family: 'Conv_Montserrat-Medium';
+}
