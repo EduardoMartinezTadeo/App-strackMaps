@@ -34,6 +34,7 @@ export class AppComponent {
 
   initializeApp(){
     this.platform.ready().then(() => {
+      this.changeDarkMode();
       this.statusBar.backgroundColorByHexString('#002e6d');
       this.network.onDisconnect().subscribe(() => {
         this.initializeNetworkEvents();
@@ -91,5 +92,12 @@ export class AppComponent {
 
   public getCurrentNetworkStatus(): ConnectionStatus {
     return this.status.getValue();
+  }
+
+  changeDarkMode(){
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+    if (prefersDark.matches){
+    document.body.classList.toggle('dark');
+    }
   }
 }

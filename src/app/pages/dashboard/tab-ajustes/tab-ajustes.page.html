@@ -1,9 +1,82 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>tab-ajustes</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
+    <ion-row>
+        <h1 class="titulos">Ajustes</h1>
+    </ion-row>
+    <ion-card>
+        <ion-card-content>
+            <ion-item lines="none">
+                <ion-avatar slot="start" class="groove">
+                    <img src="assets/imgs/avatar.png">
+                </ion-avatar>
+                <ion-label>
+                    <h3 class="titulos">Nombre Operador</h3>
+                    <p class="subtitulo p-correo">Soporte</p>
+                    <p class="subtitulo">soporte@hotmail.com</p>
+                </ion-label>
+            </ion-item>
+        </ion-card-content>
+    </ion-card>
 
+    <ion-card (click)="open()">
+        <ion-card-content>
+            <ion-item lines="none">
+                <h2 class="titulos">Ajustes & apariencia</h2>
+                <ion-icon name="color-palette" color="iconos" slot="start"></ion-icon>
+            </ion-item>
+        </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+        <ion-card-content>
+            <ion-item>
+                <ion-icon slot="start" name="exit" color="iconos"></ion-icon>
+                <h2 class="titulos"> Cerrar sesión </h2>
+                <ion-toggle (ionChange)="cerrarSesion($event)" color="danger" mode="ios" slot="end"></ion-toggle>
+            </ion-item>
+        </ion-card-content>
+    </ion-card>
+
+    <div class="bgs" (click)="close()"></div>
+    <div class="bottomSheets" (touchmove)="touchMove($event)" (touchend)="touchEnd()">
+        <div class="swipe-handler"></div>
+        <div class="content ion-padding">
+            <h1 class="ion-text-center">Configuración de apariencia</h1>
+            <ion-grid>
+                <ion-col size="12">
+                    <ion-row>
+                        <ion-col size="12">
+                            <ion-item>
+                                <ion-icon slot="start" name="moon" color="iconos"></ion-icon>
+                                <ion-label class="modo-dark"> Modo oscuro </ion-label>
+                                <ion-toggle [(ngModel)]="darkValue" [checked]="darkValue" (ionChange)="setTheme($event)" color="danger" mode="ios"></ion-toggle>
+                            </ion-item>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col size="12">
+                            <ion-item lines="full">
+                                <ion-label class="modo-dark"> Brillo</ion-label>
+                                <ion-range min="1" max="100" (ionChange)="setBrightness()" [(ngModel)]="rangeval" color="danger" pin="true"></ion-range>
+                                <ion-icon name="sunny" slot="start" color="iconos"></ion-icon>
+                            </ion-item>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col size="12">
+                            <ion-item lines="full">
+                                <ion-icon name="repeat-outline" slot="start" color="iconos"></ion-icon>
+                                <ion-button slot="end" (click)="lockToPortrait()" *ngIf="btn1" shape="round">
+                                    <ion-icon name="phone-portrait-outline" color="danger"></ion-icon>
+                                </ion-button>
+                                <ion-button slot="end" (click)="lockToLandscape()" *ngIf="btn2" shape="round">
+                                    <ion-icon name="phone-landscape-outline" color="danger"></ion-icon>
+                                </ion-button>
+                                <ion-label class="modo-dark">Orientación</ion-label>
+                            </ion-item>
+                        </ion-col>
+                    </ion-row>
+                </ion-col>
+            </ion-grid>
+        </div>
+    </div>
 </ion-content>

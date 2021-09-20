@@ -1,9 +1,34 @@
-<ion-header>
-    <ion-toolbar>
-        <ion-title>tab-inicio</ion-title>
-    </ion-toolbar>
-</ion-header>
-
-<ion-content>
-
+<ion-content class="ion-padding">
+    <ion-row>
+        <h1 class="titulos">Resumen</h1>
+    </ion-row>
+    <ion-card color="warning">
+        <ion-card-content color="warning">
+            <ion-row>
+                <ion-col size="12" class="ion-align-items-center">
+                    <ion-item lines="none" color="warning">
+                        <ion-icon name="document-text" color="iconos"></ion-icon> &nbsp;&nbsp;
+                        <ion-label>
+                            Ordenes pendientes
+                        </ion-label>
+                        <ion-badge color="primary" slot="end">11</ion-badge>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+        </ion-card-content>
+    </ion-card>
+    <ion-card color="primary">
+        <ion-card-content color="primary">
+            <ion-row>
+                <ion-col size="12" class="ion-align-items-center">
+                    <ion-item lines="none" color="primary">
+                        <ion-icon name="document-attach" color="iconos"></ion-icon> &nbsp;&nbsp;
+                        <ion-label>
+                            Nueva Orden
+                        </ion-label>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+        </ion-card-content>
+    </ion-card>
 </ion-content>

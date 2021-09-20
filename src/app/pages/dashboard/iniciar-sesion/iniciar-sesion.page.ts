@@ -64,6 +64,8 @@ export class IniciarSesionPage implements OnInit {
       position: 'bottom',
       duration: 1500,
       color: 'error',
+      animated: true,
+      cssClass: 'toast-style',
       buttons: [
         {
           side: 'start',
@@ -80,6 +82,8 @@ export class IniciarSesionPage implements OnInit {
       position: 'bottom',
       duration: 1500,
       color: 'error',
+      animated: true,
+      cssClass: 'toast-style',
       buttons: [
         {
           side: 'start',

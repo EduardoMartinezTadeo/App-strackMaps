@@ -1,0 +1,27 @@
+ion-content {
+    --background: linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.1)), url("/assets/imgs/fondo3.jpg") no-repeat center center / cover !important;
+}
+
+ion-card {
+    margin-top: 10%;
+    border-radius: 15px;
+    opacity: 0.5;
+    ion-card-content {
+        ion-row {
+            ion-col {
+                ion-icon {
+                    font-size: 20px;
+                }
+                ion-label {
+                    font-size: 14px;
+                    font-weight: bolder;
+                    font-family: 'Conv_Montserrat-Bold';
+                }
+            }
+        }
+    }
+}
+
+ion-card:hover {
+    opacity: 1.0;
+}

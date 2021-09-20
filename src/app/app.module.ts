@@ -11,20 +11,27 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { SuperTabsModule } from '@ionic-super-tabs/angular';
 import { FormsModule } from '@angular/forms';
 import { CustomFormsModule } from 'ng2-validation';
+import { IonicStorageModule } from '@ionic/storage-angular';
+import { Brightness } from '@ionic-native/brightness/ngx';
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(),
+    IonicModule.forRoot({
+    }),
+    IonicStorageModule.forRoot(),
     AppRoutingModule,
     SuperTabsModule.forRoot(),
     FormsModule,
     CustomFormsModule],
   providers: [
+    ScreenOrientation,
     StatusBar,
     Network,
+    Brightness,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })

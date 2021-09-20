@@ -1,0 +1,89 @@
+ion-content {
+    --background: linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.1)), url("/assets/imgs/fondo2.jpg") no-repeat center center / cover !important;
+}
+
+h1 {
+    margin-left: 25px;
+}
+
+ion-card {
+    opacity: 0.7;
+    border-radius: 13px;
+    ion-item {
+        ion-avatar {
+            margin-right: 0px;
+            margin-right: 6px;
+            width: 60px;
+            height: 60px;
+        }
+    }
+}
+
+.groove {
+    border-style: outset;
+    color: rgba(204, 191, 76, 0.7)
+}
+
+.p-correo {
+    font-weight: bolder;
+}
+
+.bottomSheets {
+    opacity: 0.8;
+    position: fixed;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    height: 300px;
+    bottom: 0;
+    border-radius: 20px 20px 0 0;
+    z-index: 60;
+    background-color: var(--ion-color-primary);
+    transition: 0.3s;
+    transform: translate3d(0, 0, 0);
+    .content {
+        h1 {
+            font-family: 'Conv_Montserrat-Bold';
+            color: #ffffff;
+            font-size: 18px;
+        }
+        ion-item {
+            --background: transparent !important;
+            ion-label {
+                font-size: 13px;
+                color: #ffffff;
+                font-family: 'Conv_Montserrat-Bold';
+            }
+        }
+        ion-button {
+            ion-icon {
+                font-size: 22px;
+            }
+        }
+    }
+    .swipe-handler::after {
+        content: '';
+        width: 50px;
+        height: 6px;
+        position: absolute;
+        left: 50%;
+        top: 5%;
+        margin-left: -18px;
+        margin-top: -3px;
+        border-radius: 3px;
+        background: rgb(155, 154, 154);
+    }
+}
+
+.bgs {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba($color: #000000, $alpha: 0.4);
+    z-index: 10;
+    transition: 0.3s;
+}

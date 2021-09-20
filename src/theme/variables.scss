@@ -72,6 +72,12 @@
     --ion-color-error-contrast-rgb: 255, 255, 255;
     --ion-color-error-shade: #d62d2d;
     --ion-color-error-tint: #f44747;
+    --ion-color-iconos: #F2B916;
+    --ion-color-iconos-rgb: 242, 185, 22;
+    --ion-color-iconos-contrast: #000000;
+    --ion-color-iconos-contrast-rgb: 0, 0, 0;
+    --ion-color-iconos-shade: #d5a313;
+    --ion-color-iconos-tint: #f3c02d;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -146,6 +152,12 @@
         --ion-color-error-contrast-rgb: 255, 255, 255;
         --ion-color-error-shade: #d62d2d;
         --ion-color-error-tint: #f44747;
+        --ion-color-iconos: #F2B916;
+        --ion-color-iconos-rgb: 242, 185, 22;
+        --ion-color-iconos-contrast: #000000;
+        --ion-color-iconos-contrast-rgb: 0, 0, 0;
+        --ion-color-iconos-shade: #d5a313;
+        --ion-color-iconos-tint: #f3c02d;
     }
     /*
    * iOS Dark Theme
@@ -235,4 +247,13 @@
     --ion-color-contrast-rgb: var(--ion-color-error-contrast-rgb) !important;
     --ion-color-shade: var(--ion-color-error-shade) !important;
     --ion-color-tint: var(--ion-color-error-tint) !important;
+}
+
+.ion-color-iconos {
+    --ion-color-base: var(--ion-color-iconos) !important;
+    --ion-color-base-rgb: var(--ion-color-iconos-rgb) !important;
+    --ion-color-contrast: var(--ion-color-iconos-contrast) !important;
+    --ion-color-contrast-rgb: var(--ion-color-iconos-contrast-rgb) !important;
+    --ion-color-shade: var(--ion-color-iconos-shade) !important;
+    --ion-color-tint: var(--ion-color-iconos-tint) !important;
 }

@@ -11,7 +11,7 @@
             <form novalidate>
                 <div class="form-input">
                     <ion-item>
-                        <ion-icon name="mail-outline"></ion-icon>
+                        <ion-icon name="mail" color="light"></ion-icon>
                         <ion-label class="subtitulo">Correo electrónico</ion-label>
                         <ion-input inputmode="email" class="texto" [(ngModel)]="informacion_Usuario.correo_electronico" name="correo" #correo="ngModel" required email></ion-input>
                     </ion-item>
@@ -21,7 +21,7 @@
                 </div>
                 <div class="form-input">
                     <ion-item>
-                        <ion-icon name="lock-closed-outline"></ion-icon>
+                        <ion-icon name="lock-closed" color="light"></ion-icon>
                         <ion-label class="subtitulo">Contraseña</ion-label>
                         <ion-input [type]="showPassword ? 'text': 'password'" [(ngModel)]="informacion_Usuario.contrasena" name="contrasena" #contrasena="ngModel" class="texto" required pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{7,}"></ion-input>
                         <ion-icon slot="end" [name]="passwordToggleIcon" (click)="togglePassword()" color="danger"></ion-icon>
