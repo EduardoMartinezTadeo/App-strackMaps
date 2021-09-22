@@ -5,6 +5,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingController, ToastController } from '@ionic/angular';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-iniciar-sesion',
@@ -22,7 +23,7 @@ export class IniciarSesionPage implements OnInit {
   constructor(
     private toastController: ToastController,
     private loadingController: LoadingController,
-    private router: Router
+    private dataService: DataService
   ) {
     this.myModel = {};
    }
@@ -94,6 +95,7 @@ export class IniciarSesionPage implements OnInit {
     await toast.present();
   }
 
+  responseData: any;
   async validandoInformacion() {
     const loading = await this.loadingController.create({
       spinner: 'bubbles',
@@ -104,7 +106,10 @@ export class IniciarSesionPage implements OnInit {
     });
     await loading.present();
     setTimeout(() => {
-      this.router.navigateByUrl('/menu-tabs');
+      console.log(this.informacion_Usuario);
+      this.dataService.iniciarSesion(this.informacion_Usuario.correo_electronico, this.informacion_Usuario.contrasena).subscribe(data => {
+        this.responseData = data;
+      });
     }, 1800);
   }
 }

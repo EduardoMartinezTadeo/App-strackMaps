@@ -14,6 +14,9 @@ import { CustomFormsModule } from 'ng2-validation';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { Brightness } from '@ionic-native/brightness/ngx';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
+import { HttpClientModule } from '@angular/common/http';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { Base64ToGallery } from '@ionic-native/base64-to-gallery/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,11 +29,14 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
     AppRoutingModule,
     SuperTabsModule.forRoot(),
     FormsModule,
+    HttpClientModule,
     CustomFormsModule],
   providers: [
+    Base64ToGallery,
     ScreenOrientation,
     StatusBar,
     Network,
+    Geolocation,
     Brightness,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

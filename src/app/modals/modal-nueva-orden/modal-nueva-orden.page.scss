@@ -1,0 +1,64 @@
+ion-content {
+    --background: linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.1)), url("/assets/imgs/fondo4.jpg") no-repeat center center / cover !important;
+}
+
+ion-header {
+    ion-toolbar {
+        --background: rgb(243, 39, 53);
+        --background: linear-gradient( 302deg, rgba(243, 39, 53, 0.5830707282913166) 0%, rgba(243, 39, 53, 1) 69%);
+    }
+    ion-col {
+        ion-item {
+            --background: transparent;
+            --border-color: var(--ion-color-form, #ffffff);
+            color: #ffffff;
+            ion-button {
+                ion-icon {
+                    font-size: 22px;
+                }
+            }
+        }
+    }
+}
+
+ion-img {
+    margin-top: 5px;
+    margin-left: 15px;
+    width: 95px;
+}
+
+ion-card {
+    opacity: 0.8;
+    border-radius: 8px;
+    ion-card-content {
+        ion-item {
+            --background: transparent !important;
+            ion-label {
+                color: #ffffff;
+                font-family: "Conv_Montserrat-Medium";
+                font-size: 13px;
+            }
+            ion-select {
+                font-family: "Conv_Montserrat-Regular" !important;
+                ion-select-option {
+                    font-family: "Conv_Montserrat-Regular" !important;
+                }
+            }
+        }
+    }
+}
+
+.css-card1 {
+    -webkit-animation: tilt-in-fwd-tr 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+    animation: tilt-in-fwd-tr 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.css-card2 {
+    -webkit-animation: slide-in-bck-center .7s cubic-bezier(.25, .46, .45, .94) both;
+    animation: slide-in-bck-center .7s cubic-bezier(.25, .46, .45, .94) both;
+}
+
+.css-card3 {
+    -webkit-animation: puff-in-right .7s cubic-bezier(.47, 0.000, .745, .715) both;
+    animation: puff-in-right .7s cubic-bezier(.47, 0.000, .745, .715) both;
+}

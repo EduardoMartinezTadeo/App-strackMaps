@@ -9,6 +9,7 @@ import { Network } from '@ionic-native/network/ngx';
 import { NavController, Platform, ToastController } from '@ionic/angular';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { Observable } from 'rxjs/internal/Observable';
+import { StorageService } from './services/storage.service';
 
 export enum ConnectionStatus {
   Online,
@@ -27,9 +28,11 @@ export class AppComponent {
     private statusBar: StatusBar,
     public network: Network,
     private navCtrl: NavController,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private storage: StorageService
   ) {
     this.initializeApp();
+    this.storage.cargarPerfil();
   }
 
   initializeApp(){

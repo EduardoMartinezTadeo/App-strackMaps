@@ -209,6 +209,8 @@ export class TabAjustesPage implements OnInit {
     await loading.present();
     setTimeout(() => {
       this.navController.navigateRoot('/iniciar-sesion');
+      this.storage.remove('perfil');
+      this.storage.remove('selected-app-them');
     }, 1500);
   }
 }

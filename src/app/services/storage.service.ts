@@ -20,6 +20,7 @@ export class StorageService {
     // If using, define drivers here: await this.storage.defineDriver(/*...*/);
     const storage = await this.storage.create();
     this._storage = storage;
+    this.cargarPerfil();
     setTimeout(() => {
       this.themeSystem();
     }, 1500);
@@ -40,5 +41,20 @@ export class StorageService {
       document.body.classList.remove('dark');
     }
     this.storage.set('selected-app-theme', dark);
+  }
+
+  public set(key: string, value: any) {
+    this._storage?.set(key, value);
+  }
+
+  public remove(key: string){
+    this._storage?.remove(key);
+  }
+
+  perfil: any;
+  cargarPerfil(){
+    this.storage.get('perfil').then(perfil => {
+      this.perfil = perfil;
+    });
   }
 }

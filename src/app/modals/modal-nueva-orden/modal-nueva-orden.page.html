@@ -1,0 +1,175 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-row class="ion-align-items-center">
+            <ion-col size="6">
+                <ion-img src="assets/imgs/logo_blanco.png"></ion-img>
+            </ion-col>
+            <ion-col size="6">
+                <ion-item lines="none">
+                    <ion-button slot="end" fill="clear" (click)="cerrar()">
+                        <ion-icon name="close-circle" color="iconos"></ion-icon>
+                    </ion-button>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <ion-row class="ion-text-center">
+        <h2 class="titulos">Información del servicio</h2>
+    </ion-row>
+    <ion-card class="card-fondo css-card1" color="primary" *ngIf="card1">
+        <ion-card-content>
+            <ion-card color="danger">
+                <ion-card-header class="ion-text-center">
+                    <h2 class="subtitulo">Tipo de mantenimiento</h2>
+                </ion-card-header>
+                <ion-card-content>
+                    <ion-row>
+                        <ion-col size="12">
+                            <ion-item>
+                                <ion-label>Preventivo</ion-label>
+                                <ion-checkbox color="primary" mode="ios"></ion-checkbox>
+                            </ion-item>
+                        </ion-col>
+                        <ion-col size="12">
+                            <ion-item>
+                                <ion-label>Correctivo</ion-label>
+                                <ion-checkbox color="primary" mode="ios"></ion-checkbox>
+                            </ion-item>
+                        </ion-col>
+                    </ion-row>
+                </ion-card-content>
+            </ion-card>
+            <ion-row>
+                <ion-col size="6"></ion-col>
+                <ion-col size="6">
+                    <ion-button (click)="siguienteCard()" class="subtitulo">
+                        Siguiente &nbsp;
+                        <ion-icon name="chevron-forward-circle"></ion-icon>
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-card-content>
+    </ion-card>
+    <ion-card class="card-fondo css-card2" color="primary" *ngIf="card2">
+        <ion-card-content>
+            <ion-card color="danger">
+                <ion-card-header class="ion-text-center">
+                    <h2 class="subtitulo">Ubicación del servicio</h2>
+                </ion-card-header>
+                <ion-card-content>
+                    <ion-row>
+                        <ion-col size="12">
+                            <ion-item>
+                                <ion-label>Local</ion-label>
+                                <ion-checkbox color="primary" mode="ios"></ion-checkbox>
+                            </ion-item>
+                        </ion-col>
+                        <ion-col size="12">
+                            <ion-item>
+                                <ion-label>Domicilio</ion-label>
+                                <ion-checkbox color="primary" mode="ios"></ion-checkbox>
+                            </ion-item>
+                        </ion-col>
+                    </ion-row>
+                </ion-card-content>
+            </ion-card>
+            <ion-card color="danger">
+                <ion-card-header class="ion-text-center">
+                    <h2 class="subtitulo">Tipo de servicio</h2>
+                </ion-card-header>
+                <ion-card-content>
+                    <ion-row>
+                        <ion-col size="12">
+                            <ion-item>
+                                <ion-label>Seleccionar un servicio</ion-label>
+                                <ion-select mode="ios" okText="Aceptar" cancelText="Cancelar">
+                                    <ion-select-option value="{{servicio.id_servicio}}" *ngFor="let servicio of servicios">
+                                        {{servicio.descripcion_servicio}}
+                                    </ion-select-option>
+                                </ion-select>
+                            </ion-item>
+                        </ion-col>
+                    </ion-row>
+                </ion-card-content>
+            </ion-card>
+            <ion-card color="danger">
+                <ion-card-header class="ion-text-center">
+                    <h2 class="subtitulo">Sensores y aditamentos</h2>
+                </ion-card-header>
+                <ion-card-content>
+                    <ion-row>
+                        <ion-col size="12">
+                            <ion-item>
+                                <ion-label>Seleccionar un sensor ó aditamento</ion-label>
+                                <ion-select mode="ios" okText="Aceptar" cancelText="Cancelar">
+                                    <ion-select-option value="{{aditamento.id_sensores_Aditamentos}}" *ngFor="let aditamento of aditamientos">
+                                        {{aditamento.nombre_sensor_aditamiento}}
+                                    </ion-select-option>
+                                </ion-select>
+                            </ion-item>
+                        </ion-col>
+                    </ion-row>
+                </ion-card-content>
+            </ion-card>
+            <ion-row>
+                <ion-col size="6">
+                    <ion-button (click)="anteriorCard()" class="subtitulo">
+                        <ion-icon name="chevron-back-circle"></ion-icon> &nbsp; Anterior
+                    </ion-button>
+                </ion-col>
+                <ion-col size="6">
+                    <ion-button (click)="siguienteCardComentario()" class="subtitulo">
+                        Siguiente &nbsp;
+                        <ion-icon name="chevron-forward-circle"></ion-icon>
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-card-content>
+    </ion-card>
+    <ion-card class="card-fondo css-card3" color="primary" *ngIf="card3">
+        <ion-card-content>
+            <ion-card color="danger">
+                <ion-card-header>
+                    <h2 class="subtitulo ion-text-center">Comentarios</h2>
+                </ion-card-header>
+                <ion-card-content>
+                    <ion-textarea class="texto" inputmode="text" rows="5" placeholder="Escriba sus comentarios en esta área..."></ion-textarea>
+                </ion-card-content>
+            </ion-card>
+            <ion-card color="danger">
+                <ion-card-header>
+                    <h2 class="subtitulo ion-text-center">Firma Técnico</h2>
+                </ion-card-header>
+                <ion-card-content>
+                    <div class="signature-container">
+                        <signature-pad [options]="signaturePadOptions" (onBeginEvent)="drawStart()" (onEndEvent)="drawComplete()">
+                        </signature-pad>
+                    </div>
+                    <ion-row>
+                        <ion-col size="12">
+                            <ion-button class="subtitulo" expand="block" (click)="clearPad()">Volver a firmar &nbsp;
+                                <ion-icon name="trash"></ion-icon>
+                            </ion-button>
+                        </ion-col>
+                    </ion-row>
+                </ion-card-content>
+            </ion-card>
+            <ion-row>
+                <ion-col size="6">
+                    <ion-button (click)="anteriorCard2()" class="subtitulo">
+                        <ion-icon name="chevron-back-circle"></ion-icon> &nbsp; Anterior
+                    </ion-button>
+                </ion-col>
+                <ion-col size="6">
+                    <ion-button class="subtitulo">
+                        Siguiente &nbsp;
+                        <ion-icon name="chevron-forward-circle"></ion-icon>
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-card-content>
+    </ion-card>
+</ion-content>

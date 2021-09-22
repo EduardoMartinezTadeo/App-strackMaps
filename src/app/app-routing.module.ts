@@ -27,6 +27,10 @@ const routes: Routes = [
     path: 'tab-inicio',
     loadChildren: () => import('./pages/dashboard/tab-inicio/tab-inicio.module').then( m => m.TabInicioPageModule)
   },
+  {
+    path: 'modal-nueva-orden',
+    loadChildren: () => import('./modals/modal-nueva-orden/modal-nueva-orden.module').then( m => m.ModalNuevaOrdenPageModule)
+  },
 ];
 
 @NgModule({
