@@ -10,6 +10,7 @@ import { AlertController, LoadingController, NavController, ToastController } fr
 import { StorageService } from 'src/app/services/storage.service';
 import { Brightness } from '@ionic-native/brightness/ngx';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
+import { ProviderService } from 'src/app/services/provider.service';
 
 @Component({
   selector: 'app-tab-ajustes',
@@ -25,6 +26,8 @@ export class TabAjustesPage implements OnInit {
   darkValue: any;
   btn1: boolean = true;
   btn2: boolean = false;
+  styleLoad: boolean = true;
+  server = this.provider.server;
   constructor(
     private storage: StorageService,
     private toastController: ToastController,
@@ -32,7 +35,8 @@ export class TabAjustesPage implements OnInit {
     private so: ScreenOrientation,
     private alertController: AlertController,
     private loadingController: LoadingController,
-    private navController: NavController
+    private navController: NavController,
+    private provider: ProviderService
   ) {
     this.existingScreenOrientation = this.so.type;
     // find out changes in orientation
@@ -43,9 +47,26 @@ export class TabAjustesPage implements OnInit {
     );
   }
 
+  informacionPerfil = {
+    foto: '',
+    nombre: '',
+    correo: '',
+    status: ''
+  };
+
+  perfil: any;
   ngOnInit() {
     this.close();
     this.darkValue = this.darkBoolean;
+    setTimeout(() => {
+      this.storage.cargarPerfil();
+      this.perfil = this.storage.perfil;
+      this.informacionPerfil.foto = this.perfil.foto;
+      this.informacionPerfil.nombre = this.perfil.nombre;
+      this.informacionPerfil.correo = this.perfil.correo_electronico;
+      this.informacionPerfil.status = this.perfil.status;
+      this.styleLoad = false;
+    }, 5000);
   }
 
   themeNote: any;

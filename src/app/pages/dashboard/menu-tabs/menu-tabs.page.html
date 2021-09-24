@@ -4,10 +4,17 @@
             <ion-col size="6">
                 <ion-img src="assets/imgs/logo_blanco.png"></ion-img>
             </ion-col>
-            <ion-col size="6">
+            <ion-col size="6" *ngIf="!loadStyle">
                 <ion-item lines="none">
                     <ion-avatar slot="end">
-                        <img src="assets/imgs/avatar.png">
+                        <ion-img src="{{server + foto}}" (ionError)="onError(img)" #img></ion-img>
+                    </ion-avatar>
+                </ion-item>
+            </ion-col>
+            <ion-col size="6" *ngIf="loadStyle">
+                <ion-item lines="none">
+                    <ion-avatar slot="end">
+                        <ion-skeleton-text animated></ion-skeleton-text>
                     </ion-avatar>
                 </ion-item>
             </ion-col>

@@ -3,15 +3,33 @@
         <h1 class="titulos">Ajustes</h1>
     </ion-row>
     <ion-card>
-        <ion-card-content>
+        <ion-card-content *ngIf="!styleLoad">
             <ion-item lines="none">
                 <ion-avatar slot="start" class="groove">
-                    <img src="assets/imgs/avatar.png">
+                    <img src="{{server + informacionPerfil.foto}}">
                 </ion-avatar>
                 <ion-label>
-                    <h3 class="titulos">Nombre Operador</h3>
-                    <p class="subtitulo p-correo">Soporte</p>
-                    <p class="subtitulo">soporte@hotmail.com</p>
+                    <h3 class="titulos">{{informacionPerfil.nombre}}</h3>
+                    <p class="subtitulo p-correo">{{informacionPerfil.status}}</p>
+                    <p class="subtitulo">{{informacionPerfil.correo}}</p>
+                </ion-label>
+            </ion-item>
+        </ion-card-content>
+        <ion-card-content *ngIf="styleLoad">
+            <ion-item lines="none">
+                <ion-avatar slot="start" class="groove">
+                    <ion-skeleton-text animated></ion-skeleton-text>
+                </ion-avatar>
+                <ion-label>
+                    <h3 class="titulos">
+                        <ion-skeleton-text animated></ion-skeleton-text>
+                    </h3>
+                    <p class="subtitulo p-correo">
+                        <ion-skeleton-text animated></ion-skeleton-text>
+                    </p>
+                    <p class="subtitulo">
+                        <ion-skeleton-text animated></ion-skeleton-text>
+                    </p>
                 </ion-label>
             </ion-item>
         </ion-card-content>

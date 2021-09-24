@@ -12,6 +12,8 @@ import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { StorageService } from './storage.service';
 const apiURLIniciarSesion = environment.apiiniciarSesion;
+const apiURLBuscarUnidad = environment.apibuscarUnidad;
+
 @Injectable({
   providedIn: 'root'
 })
@@ -37,68 +39,67 @@ export class DataService {
       )
       .pipe(
         map((results) => {
-          console.log(results);
-          switch (results){
+          switch (results) {
             case "Correo electronico o contrasena incorrectos": {
               this.toast = this.toastController
-              .create({
-                message: '¡Correo electronico o contraseña incorrectos!',
-                duration: 2000,
-                mode: 'ios',
-                color: 'danger',
-                position: 'bottom',
-                buttons: [
-                  {
-                    side: 'start',
-                    icon: 'sad'
-                  }
-                ]
-              })
-              .then((toastData) => {
-                toastData.present();
-              });
+                .create({
+                  message: '¡Correo electronico o contraseña incorrectos!',
+                  duration: 2000,
+                  mode: 'ios',
+                  color: 'danger',
+                  position: 'bottom',
+                  buttons: [
+                    {
+                      side: 'start',
+                      icon: 'sad'
+                    }
+                  ]
+                })
+                .then((toastData) => {
+                  toastData.present();
+                });
               break;
             }
             case "Su cuenta ha sido bloqueada": {
               this.toast = this.toastController
-              .create({
-                message: '¡Tu cuenta ha sido bloqueada!',
-                duration: 2000,
-                mode: 'ios',
-                color: 'danger',
-                position: 'bottom',
-                buttons: [
-                  {
-                    side: 'end',
-                    icon: 'hand-right'
-                  }
-                ]
-              })
-              .then((toastData) => {
-                toastData.present();
-              });
+                .create({
+                  message: '¡Tu cuenta ha sido bloqueada!',
+                  duration: 2000,
+                  mode: 'ios',
+                  color: 'danger',
+                  position: 'bottom',
+                  buttons: [
+                    {
+                      side: 'end',
+                      icon: 'hand-right'
+                    }
+                  ]
+                })
+                .then((toastData) => {
+                  toastData.present();
+                });
               break;
             }
             default: {
               this.loadingController
-              .create({
-                message: 'Un momento...',
-                spinner: 'bubbles',
-                translucent: true,
-                duration: 2000,
-                mode: 'ios',
-                cssClass: 'alert-style'
-              })
-              .then((res) => {
-                res.present();
-                res.onDidDismiss().then((dis) => {
-                  this.toastBienvenido();
-                  this.storage.set('perfil', results);
-                  this.navCtrl.navigateRoot([
-                    '/menu-tabs',
-                  ]);
+                .create({
+                  message: 'Un momento...',
+                  spinner: 'bubbles',
+                  translucent: true,
+                  duration: 2000,
+                  mode: 'ios',
+                  cssClass: 'alert-style'
+                })
+                .then((res) => {
+                  res.present();
+                  res.onDidDismiss().then((dis) => {
+                    this.toastBienvenido();
+                    this.storage.set('perfil', results);
+                    this.navCtrl.navigateRoot([
+                      '/menu-tabs',
+                    ]);
+                  });
                 });
-              });
               break;
             }
           }
@@ -112,10 +113,78 @@ export class DataService {
       position: 'bottom',
       color: 'red',
       mode: 'ios',
+      duration: 2000,
       buttons: [
         {
           side: 'start',
           icon: 'hammer'
+        }
+      ]
+    });
+    await toast.present();
+  }
+
+  card2: boolean;
+  buscarTractocamion(buscar: string) {
+    return this.http.get(`${apiURLBuscarUnidad}?buscar=${buscar}`).pipe(map((results) => {
+      switch (results) {
+        case "No se encuentra la unidad": {
+          this.toastNoUnidad();
+          break;
+        }
+        default: {
+          this.storage.set('vehiculo', results);
+          this.cargandoInformacion();
+          break;
+        }
+      }
+    }));
+  }
+
+
+  async toastNoUnidad() {
+    const toast = await this.toastController.create({
+      message: '¡No se ha localizado la unidad!',
+      position: 'bottom',
+      mode: 'ios',
+      color: 'danger',
+      duration: 2000,
+      buttons: [
+        {
+          side: 'start',
+          icon: 'close-circle'
+        }
+      ]
+    });
+    await toast.present();
+  }
+
+  async cargandoInformacion() {
+    const loading = await this.loadingController.create({
+      cssClass: 'alert-style',
+      message: 'Un momento por favor...',
+      duration: 2000,
+      backdropDismiss: false,
+      mode: 'ios'
+    });
+    setTimeout(() => {
+      this.toastInformacion();
+    }, 1500);
+    await loading.present();
+  }
+
+  async toastInformacion() {
+    const toast = await this.toastController.create({
+      message: 'Se ha cargado la información puede continuar...',
+      position: 'bottom',
+      duration: 2000,
+      color: 'success',
+      mode: 'ios',
+      cssClass: 'toast-style',
+      buttons: [
+        {
+          side: 'start',
+          icon: 'checkmark-circle-outline',
         }
       ]
     });

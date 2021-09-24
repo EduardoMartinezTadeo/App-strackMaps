@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 
 const apicargarServiciosURL = environment.apicargarServicios;
 const apicargarAditamientosURL = environment.apicargarAditamientos;
+const apicargarSensoresCajaURL = environment.apicargarSensoresCaja;
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +33,14 @@ export class ProviderService {
     });
 
     return this.http.post<any>(apicargarAditamientosURL + file, body, { headers });
+  }
+
+  cargarSensoresCaja(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json; charset=UTF-8',
+    });
+
+    return this.http.post<any>(apicargarSensoresCajaURL + file, body, { headers });
   }
 
 }

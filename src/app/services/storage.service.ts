@@ -21,6 +21,7 @@ export class StorageService {
     const storage = await this.storage.create();
     this._storage = storage;
     this.cargarPerfil();
+    this.cargarVehiculo();
     setTimeout(() => {
       this.themeSystem();
     }, 1500);
@@ -55,6 +56,13 @@ export class StorageService {
   cargarPerfil(){
     this.storage.get('perfil').then(perfil => {
       this.perfil = perfil;
+    });
+  }
+
+  vehiculo: any;
+  cargarVehiculo(){
+    this.storage.get('vehiculo').then(vehiculo => {
+      this.vehiculo = vehiculo;
     });
   }
 }
