@@ -7,7 +7,7 @@
             <ion-col size="6" *ngIf="!loadStyle">
                 <ion-item lines="none">
                     <ion-avatar slot="end">
-                        <ion-img src="{{server + foto}}" (ionError)="onError(img)" #img></ion-img>
+                        <img src="{{server + foto}}" (ionError)="onError(img)" #img />
                     </ion-avatar>
                 </ion-item>
             </ion-col>

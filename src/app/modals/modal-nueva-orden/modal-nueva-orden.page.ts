@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable @typescript-eslint/quotes */
 /* eslint-disable eqeqeq */
 /* eslint-disable @typescript-eslint/naming-convention */
@@ -40,10 +41,14 @@ export class ModalNuevaOrdenPage implements OnInit {
   latitud;
   longitud;
   firma;
+  firmaBase;
+  a: any;
 
   drawComplete() {
     this.firma = this.signaturePad.toDataURL();
     console.log(this.firma);
+    this.firmaBase = this.firma.split(',')[1];
+    this.informacion_orden.firma = this.firmaBase;
   }
 
   drawStart() {
@@ -191,12 +196,12 @@ export class ModalNuevaOrdenPage implements OnInit {
       this.card5 = false;
       this.card6 = false;
     } else {
-    this.card5 = true;
-    this.card1 = false;
-    this.card2 = false;
-    this.card3 = false;
-    this.card4 = false;
-    this.card6 = false;
+      this.card5 = true;
+      this.card1 = false;
+      this.card2 = false;
+      this.card3 = false;
+      this.card4 = false;
+      this.card6 = false;
     }
   }
 
@@ -207,10 +212,17 @@ export class ModalNuevaOrdenPage implements OnInit {
     this.card3 = false;
     this.card4 = false;
     this.card5 = false;
+    this.card7 = false;
   }
 
   mostrarCard6() {
-    console.log(this.informacion_orden);
+    this.card7 = true;
+    this.card1 = false;
+    this.card2 = false;
+    this.card3 = false;
+    this.card4 = false;
+    this.card5 = false;
+    this.card6 = false;
   }
 
   responseData: any;
@@ -225,6 +237,10 @@ export class ModalNuevaOrdenPage implements OnInit {
   }
 
   data_Vehiculo: any;
+  fecha: any;
+  fecha2: any;
+  fecha3: any;
+  fecha4: string;
   verificarVehiculo() {
     this.storage.cargarVehiculo();
     setTimeout(() => {
@@ -235,6 +251,11 @@ export class ModalNuevaOrdenPage implements OnInit {
         this.informacion_orden.marca = this.data_Vehiculo.marca;
         this.informacion_orden.imei = this.data_Vehiculo.imei;
         this.informacion_orden.fch_last_pos = this.data_Vehiculo.fechaPosicion.date;
+        this.fecha = this.informacion_orden.fch_last_pos.split(' ');
+        this.fecha2 = this.fecha[0];
+        this.fecha3 = this.fecha[1];
+        this.fecha4 = this.fecha3.split('.')[0];
+        this.informacion_orden.fecha_posicionFinal = this.fecha2 + ' ' + this.fecha4;
         this.informacion_orden.placas = this.data_Vehiculo.placas;
         this.informacion_orden.latitud = this.data_Vehiculo.latitud;
         this.informacion_orden.longitud = this.data_Vehiculo.longitud;
@@ -311,7 +332,9 @@ export class ModalNuevaOrdenPage implements OnInit {
     sensor_paro: '',
     servicio_realizado: '',
     observaciones: '',
-    firma: ''
+    firma: '',
+    fecha_posicionFinal: '',
+    status_orden: ''
   }
 
 
@@ -372,36 +395,69 @@ export class ModalNuevaOrdenPage implements OnInit {
   }
 
   sensores: any;
-  onClickSensores(data){
-    this.sensores  = data.nombre_sensor_aditamiento;
-    if(this.sensores == 'Sensor encendido'){
+  onClickSensores(data) {
+    this.sensores = data.nombre_sensor_aditamiento;
+    if (this.sensores == 'Sensor encendido') {
       this.informacion_orden.sensor_on = '1';
-    } else if(this.sensores == 'Botón de pánico'){
+    } else if (this.sensores == 'Botón de pánico') {
       this.informacion_orden.sensor_boton = '1';
-    } else if(this.sensores == 'Corta-corriente'){
+    } else if (this.sensores == 'Corta-corriente') {
       this.informacion_orden.sensor_corriente = '1';
-    } else if(this.sensores == 'Sensores de temperatura'){
+    } else if (this.sensores == 'Sensores de temperatura') {
       this.informacion_orden.sensor_temperatura = '1';
-    } else if(this.sensores == 'Driver ID'){
+    } else if (this.sensores == 'Driver ID') {
       this.informacion_orden.sensor_driverId = '1';
-    } else if(this.sensores == 'Sensor toma fuerza'){
+    } else if (this.sensores == 'Sensor toma fuerza') {
       this.informacion_orden.sensor_tomaFuerza = '1';
-    } else if(this.sensores == 'Apertura de caja'){
+    } else if (this.sensores == 'Apertura de caja') {
       this.informacion_orden.sensor_caja = '1';
-    } else if(this.sensores == 'Apertura de cabina'){
+    } else if (this.sensores == 'Apertura de cabina') {
       this.informacion_orden.sensor_cabina = '1';
-    } else if(this.sensores == 'Sensores de combustible'){
+    } else if (this.sensores == 'Sensores de combustible') {
       this.informacion_orden.sensor_combustible = '1';
-    } else if(this.sensores == 'Buzzer'){
+    } else if (this.sensores == 'Buzzer') {
       this.informacion_orden.sensor_buzzer = '1';
-    } else if(this.sensores == 'Paro seguro'){
+    } else if (this.sensores == 'Paro seguro') {
       this.informacion_orden.sensor_paro = '1';
     }
   }
 
   dataServicio: any;
-  ionChangeServicio(event){
+  ionChangeServicio(event) {
     this.dataServicio = event.detail.value;
     this.informacion_orden.servicio_realizado = this.dataServicio;
+  }
+
+
+  guardarNota() {
+     console.log(this.informacion_orden);
+    if(this.informacion_orden.firma == null || this.informacion_orden.firma == ''){
+      this.a = 'Es necesario firmar la orden...';
+      this.toastValidarInformacion(this.a);
+    } else {
+      this.informacion_orden.status_orden == '1';
+      this.dataService.registrarOrden(this.informacion_orden.unidad, this.informacion_orden.tecnico, this.informacion_orden.tipo_orden, this.informacion_orden.usr_crea, this.informacion_orden.latitud, this.informacion_orden.longitud, this.informacion_orden.fecha_posicionFinal, this.informacion_orden.sensor_on, this.informacion_orden.sensor_paro, this.informacion_orden.sensor_boton, this.informacion_orden.sensor_buzzer, this.informacion_orden.sensor_caja, this.informacion_orden.imei, this.informacion_orden.proveedor, this.informacion_orden.observaciones, this.informacion_orden.marca, this.informacion_orden.placas,this.informacion_orden.serie, this.informacion_orden.tipo_vehiculo, this.informacion_orden.latitud_tecnico, this.informacion_orden.longitud_tecnico, this.informacion_orden.ubicacion_servicio, this.informacion_orden.sensor_cabina, this.informacion_orden.sensor_combustible, this.informacion_orden.sensor_tomaFuerza, this.informacion_orden.sensor_driverId, this.informacion_orden.sensor_temperatura, this.informacion_orden.sensor_corriente, this.informacion_orden.servicio_realizado, this.informacion_orden.firma, this.informacion_orden.status_orden).subscribe(data => {
+          this.responseData = data;
+          console.log('entro al servicio');
+        });
+    }
+  }
+
+  async toastValidarInformacion(dataT) {
+    const toast = await this.toastController.create({
+      message: dataT,
+      position: 'bottom',
+      duration: 2000,
+      color: 'danger',
+      mode: 'ios',
+      cssClass: 'toast-style',
+      buttons: [
+        {
+          side: 'end',
+          icon: 'close-circle-outline'
+        }
+      ]
+    });
+    await toast.present();
   }
 }
