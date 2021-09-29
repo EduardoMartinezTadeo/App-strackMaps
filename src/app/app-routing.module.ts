@@ -31,6 +31,10 @@ const routes: Routes = [
     path: 'modal-nueva-orden',
     loadChildren: () => import('./modals/modal-nueva-orden/modal-nueva-orden.module').then( m => m.ModalNuevaOrdenPageModule)
   },
+  {
+    path: 'modal-orden-pendiente',
+    loadChildren: () => import('./modals/modal-orden-pendiente/modal-orden-pendiente.module').then( m => m.ModalOrdenPendientePageModule)
+  },
 ];
 
 @NgModule({

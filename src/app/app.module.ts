@@ -16,7 +16,6 @@ import { Brightness } from '@ionic-native/brightness/ngx';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { HttpClientModule } from '@angular/common/http';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
-import { Base64ToGallery } from '@ionic-native/base64-to-gallery/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -32,7 +31,6 @@ import { Base64ToGallery } from '@ionic-native/base64-to-gallery/ngx';
     HttpClientModule,
     CustomFormsModule],
   providers: [
-    Base64ToGallery,
     ScreenOrientation,
     StatusBar,
     Network,

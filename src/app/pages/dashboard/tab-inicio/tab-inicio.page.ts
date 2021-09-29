@@ -1,3 +1,4 @@
+import { ModalOrdenPendientePage } from './../../../modals/modal-orden-pendiente/modal-orden-pendiente.page';
 import { ModalNuevaOrdenPage } from './../../../modals/modal-nueva-orden/modal-nueva-orden.page';
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
@@ -24,4 +25,10 @@ export class TabInicioPage implements OnInit {
     return await modal.present();
   }
 
+  async ordenPendiente(){
+    const modal = await this.modalController.create({
+      component: ModalOrdenPendientePage
+    });
+    return await modal.present();
+  }
 }

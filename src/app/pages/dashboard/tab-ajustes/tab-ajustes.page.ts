@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable @typescript-eslint/no-inferrable-types */
 /* eslint-disable @typescript-eslint/member-ordering */
@@ -6,7 +8,7 @@
 /* eslint-disable @typescript-eslint/quotes */
 /* eslint-disable @typescript-eslint/consistent-type-assertions */
 import { Component, OnInit } from '@angular/core';
-import { AlertController, LoadingController, NavController, ToastController } from '@ionic/angular';
+import { ActionSheetController, AlertController, LoadingController, NavController, ToastController } from '@ionic/angular';
 import { StorageService } from 'src/app/services/storage.service';
 import { Brightness } from '@ionic-native/brightness/ngx';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
@@ -36,10 +38,11 @@ export class TabAjustesPage implements OnInit {
     private alertController: AlertController,
     private loadingController: LoadingController,
     private navController: NavController,
-    private provider: ProviderService
+    private provider: ProviderService,
+    private actionSheetController: ActionSheetController,
   ) {
     this.existingScreenOrientation = this.so.type;
-    // find out changes in orientation
+     //find out changes in orientation
     this.so.onChange().subscribe(
       () => {
         this.existingScreenOrientation = this.so.type;
@@ -178,7 +181,7 @@ export class TabAjustesPage implements OnInit {
     this.btn2 = true;
   }
 
-  // Lock to landscape
+   //Lock to landscape
   lockToLandscape() {
     this.so.lock(this.so.ORIENTATIONS.LANDSCAPE);
     this.btn2 = false;

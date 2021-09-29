@@ -1,3 +1,74 @@
 ion-content {
     --background: linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.1)), url("/assets/imgs/fondo1.jpg") no-repeat center center / cover !important;
 }
+
+ion-col {
+    ion-row {
+        ion-item {
+            --background: transparent !important;
+            opacity: 0.6;
+            border-radius: 8px;
+            ion-label {
+                font-family: 'Conv_Montserrat-Medium';
+                font-size: 12px;
+            }
+            ion-select {
+                font-size: 12px;
+                font-family: 'Conv_Montserrat-Medium';
+                ion-select-option {
+                    font-size: 12px;
+                    font-family: 'Conv_Montserrat-Medium';
+                }
+            }
+        }
+    }
+}
+
+h2 {
+    color: #002e6d;
+}
+
+.ion-col-table {
+    border-radius: 0.1px;
+    background: #e67e22;
+    opacity: 0.6;
+    ion-label {
+        text-align: center;
+        font-size: 13px !important;
+        font-family: 'Conv_Montserrat-Medium';
+        color: #ffff;
+    }
+}
+
+.ion-col-table-data {
+    border-radius: 0.1px;
+    background: #002e6d;
+    opacity: 0.6;
+    margin-bottom: 1px;
+    margin-top: 2px;
+    ion-label {
+        text-align: center;
+        font-size: 13px !important;
+        font-family: 'Conv_Montserrat-Medium';
+        color: #ffff;
+    }
+}
+
+.ion-col-table-data-skeleton {
+    border-radius: 0.1px;
+    background: #8c8e92;
+    opacity: 0.6;
+    margin-bottom: 1px;
+    margin-top: 2px;
+    ion-label {
+        text-align: center;
+        font-size: 13px !important;
+        font-family: 'Conv_Montserrat-Medium';
+        color: #ffff;
+    }
+}
+
+ion-skeleton-text {
+    //background: rgba(170, 148, 148, 0.349);
+    opacity: 1;
+}

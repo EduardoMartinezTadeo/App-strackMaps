@@ -9,6 +9,7 @@ import { ModalNuevaOrdenPageRoutingModule } from './modal-nueva-orden-routing.mo
 import { ModalNuevaOrdenPage } from './modal-nueva-orden.page';
 import { SignaturePadModule } from 'angular2-signaturepad';
 
+
 @NgModule({
   imports: [
     CommonModule,

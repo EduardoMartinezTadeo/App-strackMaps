@@ -14,7 +14,6 @@ import { environment } from 'src/environments/environment';
 import { StorageService } from './storage.service';
 const apiURLIniciarSesion = environment.apiiniciarSesion;
 const apiURLBuscarUnidad = environment.apibuscarUnidad;
-const apiURLRegistrarOrden = environment.apiregistrarOrden;
 @Injectable({
   providedIn: 'root'
 })
@@ -190,48 +189,5 @@ export class DataService {
       ]
     });
     await toast.present();
-  }
-
-  registrarOrden(
-    unidad: string,
-    tecnico: string,
-    tipo_orden: string,
-    usr_crea: string,
-    latitud: string,
-    longitud: string,
-    fch_last_pos: string,
-    sensor_on: string,
-    sensor_paro: string,
-    sensor_boton: string,
-    sensor_buzzer: string,
-    sensor_caja: string,
-    imei: string,
-    proveedor: string,
-    obs: string,
-    marca: string,
-    placas: string,
-    serie: string,
-    tipo_vehiculo: string,
-    latitud_tecnico: string,
-    longitud_tecnico: string,
-    ubicacion_servicio: string,
-    sensor_cabina: string,
-    sensor_combustible: string,
-    sensor_tomaFuerza: string,
-    sensor_driverId: string,
-    sensor_temperatura: string,
-    sensor_corriente: string,
-    servicio_realizado: string,
-    firma: any,
-    status_orden: string) {
-    return this.http.get(`${apiURLRegistrarOrden}?unidad=${unidad}&tecnico=${tecnico}&tipo_orden=${tipo_orden}&usr_crea=${usr_crea}&latitud=${latitud}&longitud=${longitud}&fch_last_pos=${fch_last_pos}&sensor_on=${sensor_on}&sensor_paro=${sensor_paro}&sensor_boton=${sensor_boton}&sensor_buzzer=${sensor_buzzer}&sensor_caja=${sensor_caja}&imei=${imei}&proveedor=${proveedor}&obs=${obs}&marca=${marca}&placas=${placas}&serie=${serie}&tipo_vehiculo=${tipo_vehiculo}&latitud_tecnico=${latitud_tecnico}&longitud_tecnico=${longitud_tecnico}&ubicacion_servicio=${ubicacion_servicio}&sensor_cabina=${sensor_cabina}&sensor_combustible=${sensor_combustible}&sensor_tomaFuerza=${sensor_tomaFuerza}&sensor_driverId=${sensor_driverId}&sensor_temperatura=${sensor_temperatura}&sensor_corriente=${sensor_corriente}&servicio_realizado=${servicio_realizado}&firma=${firma}&status_orden=${status_orden}`).pipe(map((results) => {
-      this.responseData = results;
-      console.log(this.responseData);
-      if (unidad == '' && tecnico == '' && tipo_orden == '' && usr_crea == '' && latitud == '' && longitud == '' && fch_last_pos == '' && sensor_on == '' && sensor_paro == '' && sensor_boton == '' && sensor_buzzer == '' && sensor_caja == '' && proveedor == '' && obs == '' && marca == '' && placas == '' && serie == '' && tipo_vehiculo == '' && latitud_tecnico == '' && longitud_tecnico == '' && ubicacion_servicio == '' && sensor_cabina == '' && sensor_combustible == '' && sensor_tomaFuerza == '' && sensor_driverId == '' && sensor_temperatura == '' && sensor_corriente == '' && servicio_realizado == '' && firma == '' && status_orden == '') {
-        console.log('campo vacio');
-      } else {
-        console.log('todo bien');
-      }
-    }));
   }
 }

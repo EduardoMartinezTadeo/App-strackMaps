@@ -1,3 +1,6 @@
+import { OnInit } from '@angular/core';
+/* eslint-disable no-var */
+/* eslint-disable no-trailing-spaces */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable @typescript-eslint/quotes */
 /* eslint-disable eqeqeq */
@@ -15,27 +18,26 @@
 /* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/member-ordering */
 /* eslint-disable @typescript-eslint/no-inferrable-types */
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild} from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { ModalController, ToastController } from '@ionic/angular';
 import { ProviderService } from 'src/app/services/provider.service';
-import { SignaturePad } from 'angular2-signaturepad';
 import { DataService } from 'src/app/services/data.service';
 import { StorageService } from 'src/app/services/storage.service';
-import { RouterStateSnapshot } from '@angular/router';
+import { SignaturePad } from 'angular2-signaturepad';
 
 @Component({
   selector: 'app-modal-nueva-orden',
   templateUrl: './modal-nueva-orden.page.html',
   styleUrls: ['./modal-nueva-orden.page.scss'],
 })
-export class ModalNuevaOrdenPage implements OnInit {
+export class ModalNuevaOrdenPage implements  OnInit {
   @ViewChild(SignaturePad) signaturePad: SignaturePad;
-  signatureImg: string;
+  signatureImg : string;
   signaturePadOptions: Object = {
-    'minWidth': 0.2,
+    'minWidth': 1,
     'canvasWidth': 300,
-    'canvasHeight': 100
+    'canvasHeight': 150
   };
 
   latitud;
@@ -43,21 +45,9 @@ export class ModalNuevaOrdenPage implements OnInit {
   firma;
   firmaBase;
   a: any;
+  imgRes: any;
+  options: any
 
-  drawComplete() {
-    this.firma = this.signaturePad.toDataURL();
-    console.log(this.firma);
-    this.firmaBase = this.firma.split(',')[1];
-    this.informacion_orden.firma = this.firmaBase;
-  }
-
-  drawStart() {
-    console.log('begin drawing');
-  }
-
-  clearPad() {
-    this.signaturePad.clear();
-  }
 
   data_busqueda = {
     clave: ''
@@ -71,6 +61,7 @@ export class ModalNuevaOrdenPage implements OnInit {
   card5: boolean = false;
   card6: boolean = false;
   card7: boolean = false;
+  card8: boolean = false;
   constructor(
     private modalController: ModalController,
     private geolocation: Geolocation,
@@ -118,6 +109,26 @@ export class ModalNuevaOrdenPage implements OnInit {
     this.cargarSensoresCaja();
     this.perfil = this.storage.perfil;
   }
+
+  drawComplete() {
+    // will be notified of szimek/signature_pad's onEnd event
+    console.log(this.signaturePad.toDataURL());
+  }
+
+  drawStart() {
+    // will be notified of szimek/signature_pad's onBegin event
+    console.log('begin drawing');
+  }
+
+  clearPad() {
+    this.signaturePad.clear();
+  }
+
+  savePad() {
+    this.signatureImg = this.signaturePad.toDataURL();
+    this.informacion_orden.firma = this.signatureImg;
+  }
+  //Termina codigo firma
 
   cerrar() {
     this.modalController.dismiss();
@@ -430,16 +441,49 @@ export class ModalNuevaOrdenPage implements OnInit {
 
 
   guardarNota() {
-     console.log(this.informacion_orden);
-    if(this.informacion_orden.firma == null || this.informacion_orden.firma == ''){
+    this.informacion_orden.status_orden = '1';
+    if(this.informacion_orden.firma == ''){
       this.a = 'Es necesario firmar la orden...';
       this.toastValidarInformacion(this.a);
     } else {
-      this.informacion_orden.status_orden == '1';
-      this.dataService.registrarOrden(this.informacion_orden.unidad, this.informacion_orden.tecnico, this.informacion_orden.tipo_orden, this.informacion_orden.usr_crea, this.informacion_orden.latitud, this.informacion_orden.longitud, this.informacion_orden.fecha_posicionFinal, this.informacion_orden.sensor_on, this.informacion_orden.sensor_paro, this.informacion_orden.sensor_boton, this.informacion_orden.sensor_buzzer, this.informacion_orden.sensor_caja, this.informacion_orden.imei, this.informacion_orden.proveedor, this.informacion_orden.observaciones, this.informacion_orden.marca, this.informacion_orden.placas,this.informacion_orden.serie, this.informacion_orden.tipo_vehiculo, this.informacion_orden.latitud_tecnico, this.informacion_orden.longitud_tecnico, this.informacion_orden.ubicacion_servicio, this.informacion_orden.sensor_cabina, this.informacion_orden.sensor_combustible, this.informacion_orden.sensor_tomaFuerza, this.informacion_orden.sensor_driverId, this.informacion_orden.sensor_temperatura, this.informacion_orden.sensor_corriente, this.informacion_orden.servicio_realizado, this.informacion_orden.firma, this.informacion_orden.status_orden).subscribe(data => {
-          this.responseData = data;
-          console.log('entro al servicio');
-        });
+      let body = {
+        strackMaps: 'registrarOrden',
+        unidad: this.informacion_orden.unidad,
+        tecnico: this.informacion_orden.tecnico,
+        tipo_orden: this.informacion_orden.tipo_orden,
+        usr_crea: this.informacion_orden.usr_crea,
+        latitud: this.informacion_orden.latitud,
+        longitud: this.informacion_orden.longitud,
+        fch_last_pos: this.informacion_orden.fecha_posicionFinal,
+        sensor_on: this.informacion_orden.sensor_on,
+        sensor_paro: this.informacion_orden.sensor_paro,
+        sensor_boton: this.informacion_orden.sensor_boton,
+        sensor_buzzer: this.informacion_orden.sensor_buzzer,
+        sensor_caja: this.informacion_orden.sensor_caja,
+        imei: this.informacion_orden.imei,
+        proveedor: this.informacion_orden.proveedor,
+        obs: this.informacion_orden.observaciones,
+        marca: this.informacion_orden.marca,
+        placas: this.informacion_orden.placas,
+        serie: this.informacion_orden.serie,
+        tipo_vehiculo: this.informacion_orden.tipo_vehiculo,
+        latitud_tecnico: this.informacion_orden.latitud_tecnico,
+        longitud_tecnico: this.informacion_orden.longitud_tecnico,
+        ubicacion_servicio: this.informacion_orden.ubicacion_servicio,
+        sensor_cabina: this.informacion_orden.sensor_cabina,
+        sensor_combustible: this.informacion_orden.sensor_combustible,
+        sensor_tomaFuerza: this.informacion_orden.sensor_tomaFuerza,
+        sensor_driverId: this.informacion_orden.sensor_driverId,
+        sensor_temperatura: this.informacion_orden.sensor_temperatura,
+        sensor_corriente: this.informacion_orden.sensor_corriente,
+        servicio_realizado: this.informacion_orden.servicio_realizado,
+        firma: this.informacion_orden.firma,
+        status_orden: this.informacion_orden.status_orden
+      }
+      console.log(body);
+      this.provider.registrarOrdenes(body, 'db_registrar_ordenes.php').subscribe((data) => {
+        console.log(data);
+      });
     }
   }
 
@@ -460,4 +504,5 @@ export class ModalNuevaOrdenPage implements OnInit {
     });
     await toast.present();
   }
+
 }

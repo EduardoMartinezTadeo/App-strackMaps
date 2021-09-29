@@ -7,6 +7,9 @@ import { environment } from 'src/environments/environment';
 const apicargarServiciosURL = environment.apicargarServicios;
 const apicargarAditamientosURL = environment.apicargarAditamientos;
 const apicargarSensoresCajaURL = environment.apicargarSensoresCaja;
+const apicargarOrdenesURL = environment.apicargarOrdenes;
+const apiactualizarFotoPerfilURL = environment.apiactualizarFoto;
+const apiregistrarOrdenesURL = environment.apiregistrarOrden;
 
 @Injectable({
   providedIn: 'root'
@@ -41,6 +44,31 @@ export class ProviderService {
     });
 
     return this.http.post<any>(apicargarSensoresCajaURL + file, body, { headers });
+  }
+
+  cargarOrdenes(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json; charset=UTF-8',
+    });
+
+    return this.http.post<any>(apicargarOrdenesURL + file, body, { headers });
+  }
+
+
+  actualizarFotoPerfil(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json; charset=UTF-8',
+    });
+
+    return this.http.post<any>(apiactualizarFotoPerfilURL + file, body, { headers });
+  }
+
+  registrarOrdenes(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json; charset=UTF-8',
+    });
+
+    return this.http.post<any>(apiregistrarOrdenesURL + file, body, { headers });
   }
 
 }
