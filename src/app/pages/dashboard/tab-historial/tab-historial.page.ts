@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-inferrable-types */
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable eqeqeq */
 /* eslint-disable prefer-const */
@@ -19,6 +20,7 @@ export class TabHistorialPage implements OnInit {
     private provider: ProviderService
   ) { }
 
+  noResultados: boolean = false;
   // eslint-disable-next-line @typescript-eslint/no-inferrable-types
   candLoad: boolean = true;
   perfil: any;
@@ -42,6 +44,9 @@ export class TabHistorialPage implements OnInit {
       this.dataResponse = data.result;
       setTimeout(() => {
         this.candLoad = false;
+        if(this.dataResponse.length == 0){
+         this.noResultados = true;
+        }
       }, 1500);
     });
   }
@@ -50,6 +55,7 @@ export class TabHistorialPage implements OnInit {
   ionChangeT(data){
     this.dataResponse = [];
     this.candLoad = true;
+    this.noResultados = false;
     this.tipoBusqueda = data.detail.value;
     if(this.tipoBusqueda == 'f1'){
       let body = {
@@ -58,9 +64,8 @@ export class TabHistorialPage implements OnInit {
       };
       this.provider.cargarOrdenes(body, 'db_cargar_ordenes.php').subscribe(data => {
         this.dataResponse = data.result;
-        console.log(this.dataResponse);
         if(this.dataResponse.length == 0){
-          console.log('no hay datos');
+          this.noResultados = true;
         }
         setTimeout(() => {
           this.candLoad = false;
@@ -73,9 +78,8 @@ export class TabHistorialPage implements OnInit {
       };
       this.provider.cargarOrdenes(body, 'db_cargar_ordenes.php').subscribe(data => {
         this.dataResponse = data.result;
-        console.log(this.dataResponse);
         if(this.dataResponse.length == 0){
-          console.log('no hay datos');
+          this.noResultados = true;
         }
         setTimeout(() => {
           this.candLoad = false;
@@ -89,9 +93,8 @@ export class TabHistorialPage implements OnInit {
       this.provider.cargarOrdenes(body, 'db_cargar_ordenes.php').subscribe(data => {
         this.dataResponse = data.result;
         if(this.dataResponse.length == 0){
-          console.log('no hay datos');
+          this.noResultados = true;
         }
-        console.log(this.dataResponse);
         setTimeout(() => {
           this.candLoad = false;
         }, 1500);
@@ -103,9 +106,8 @@ export class TabHistorialPage implements OnInit {
       };
       this.provider.cargarOrdenes(body, 'db_cargar_ordenes.php').subscribe(data => {
         this.dataResponse = data.result;
-        console.log(this.dataResponse);
         if(this.dataResponse.length == 0){
-          console.log('no hay datos');
+          this.noResultados = true;
         }
         setTimeout(() => {
           this.candLoad = false;
@@ -118,9 +120,8 @@ export class TabHistorialPage implements OnInit {
       };
       this.provider.cargarOrdenes(body, 'db_cargar_ordenes.php').subscribe(data => {
         this.dataResponse = data.result;
-        console.log(this.dataResponse);
         if(this.dataResponse.length == 0){
-          console.log('no hay datos');
+          this.noResultados = true;
         }
         setTimeout(() => {
           this.candLoad = false;
@@ -133,14 +134,24 @@ export class TabHistorialPage implements OnInit {
       };
       this.provider.cargarOrdenes(body, 'db_cargar_ordenes.php').subscribe(data => {
         this.dataResponse = data.result;
-        console.log(this.dataResponse);
         if(this.dataResponse.length == 0){
-          console.log('no hay datos');
+          this.noResultados = true;
         }
         setTimeout(() => {
           this.candLoad = false;
         }, 1500);
       });
     }
+  }
+
+  doRefresh(event) {
+    this.dataResponse = [];
+    setTimeout(() => {
+      this.tipoBusqueda = 'f1';
+      this.perfil = this.storage.perfil;
+      this.id_usuario = this.perfil.id;
+      this.ngOnInit();
+      event.target.complete();
+    }, 1500);
   }
 }

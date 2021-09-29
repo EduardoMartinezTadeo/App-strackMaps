@@ -1,4 +1,8 @@
 <ion-content class="ion-padding">
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content class="texto refresh" pullingIcon="sync-circle" refreshingSpinner="circular" refreshingText="Actualizando...">
+        </ion-refresher-content>
+    </ion-refresher>
     <ion-row>
         <ion-col size="12">
             <ion-row>
@@ -24,88 +28,94 @@
         </ion-col>
     </ion-row>
 
-    <ion-grid *ngIf="candLoad">
-        <ion-row class="ion-text-center">
-            <ion-col size="3" class="ion-col-table">
-                <ion-label>
-                    Tipo de vehiculo
-                </ion-label>
-            </ion-col>
-            <ion-col size="3" class="ion-col-table">
-                <ion-label>
-                    Unidad
-                </ion-label>
-            </ion-col>
-            <ion-col size="3" class="ion-col-table">
-                <ion-label>
-                    Tipo Orden
-                </ion-label>
-            </ion-col>
-            <ion-col size="3" class="ion-col-table">
-                <ion-label>
-                    Fecha de registro
-                </ion-label>
-            </ion-col>
-        </ion-row>
-        <ion-row *ngFor="let orden of dataResponse">
-            <ion-col size="6" class="ion-col-table-data-skeleton">
-                <ion-label>
-                    <ion-skeleton-text animated></ion-skeleton-text>
-                </ion-label>
-            </ion-col>
-            <ion-col size="6" class="ion-col-table-data-skeleton">
-                <ion-label>
-                    <ion-skeleton-text animated></ion-skeleton-text>
-                </ion-label>
-            </ion-col>
-        </ion-row>
-    </ion-grid>
 
-    <ion-grid *ngIf="!candLoad">
-        <ion-row class="ion-text-center">
-            <ion-col size="3" class="ion-col-table">
-                <ion-label>
-                    Tipo de vehiculo
-                </ion-label>
-            </ion-col>
-            <ion-col size="3" class="ion-col-table">
-                <ion-label>
-                    Unidad
-                </ion-label>
-            </ion-col>
-            <ion-col size="3" class="ion-col-table">
-                <ion-label>
-                    Tipo Orden
-                </ion-label>
-            </ion-col>
-            <ion-col size="3" class="ion-col-table">
-                <ion-label>
-                    Fecha de registro
-                </ion-label>
-            </ion-col>
-        </ion-row>
-        <ion-row *ngFor="let orden of dataResponse">
-            <ion-col size="3" class="ion-col-table-data">
-                <ion-label>
-                    {{orden.tipo_vehiculo}}
-                </ion-label>
-            </ion-col>
-            <ion-col size="3" class="ion-col-table-data">
-                <ion-label>
-                    {{orden.unidad}}
-                </ion-label>
-            </ion-col>
-            <ion-col size="3" class="ion-col-table-data">
-                <ion-label>
-                    {{orden.tipo_orden}}
-                </ion-label>
-            </ion-col>
-            <ion-col size="3" class="ion-col-table-data">
-                <ion-label>
-                    {{orden.fch_orden.date}}
-                </ion-label>
-            </ion-col>
-        </ion-row>
-    </ion-grid>
+    <div *ngIf="!noResultados">
+        <ion-grid *ngIf="candLoad">
+            <ion-row class="ion-text-center">
+                <ion-col size="3" class="ion-col-table">
+                    <ion-label>
+                        Tipo de vehiculo
+                    </ion-label>
+                </ion-col>
+                <ion-col size="3" class="ion-col-table">
+                    <ion-label>
+                        Unidad
+                    </ion-label>
+                </ion-col>
+                <ion-col size="3" class="ion-col-table">
+                    <ion-label>
+                        Tipo Orden
+                    </ion-label>
+                </ion-col>
+                <ion-col size="3" class="ion-col-table">
+                    <ion-label>
+                        Fecha de registro
+                    </ion-label>
+                </ion-col>
+            </ion-row>
+            <ion-row *ngFor="let orden of dataResponse">
+                <ion-col size="6" class="ion-col-table-data-skeleton">
+                    <ion-label>
+                        <ion-skeleton-text animated></ion-skeleton-text>
+                    </ion-label>
+                </ion-col>
+                <ion-col size="6" class="ion-col-table-data-skeleton">
+                    <ion-label>
+                        <ion-skeleton-text animated></ion-skeleton-text>
+                    </ion-label>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+        <ion-grid *ngIf="!candLoad">
+            <ion-row class="ion-text-center">
+                <ion-col size="3" class="ion-col-table">
+                    <ion-label>
+                        Tipo de vehiculo
+                    </ion-label>
+                </ion-col>
+                <ion-col size="3" class="ion-col-table">
+                    <ion-label>
+                        Unidad
+                    </ion-label>
+                </ion-col>
+                <ion-col size="3" class="ion-col-table">
+                    <ion-label>
+                        Tipo Orden
+                    </ion-label>
+                </ion-col>
+                <ion-col size="3" class="ion-col-table">
+                    <ion-label>
+                        Fecha de registro
+                    </ion-label>
+                </ion-col>
+            </ion-row>
+            <ion-row *ngFor="let orden of dataResponse">
+                <ion-col size="3" class="ion-col-table-data">
+                    <ion-label>
+                        {{orden.tipo_vehiculo}}
+                    </ion-label>
+                </ion-col>
+                <ion-col size="3" class="ion-col-table-data">
+                    <ion-label>
+                        {{orden.unidad}}
+                    </ion-label>
+                </ion-col>
+                <ion-col size="3" class="ion-col-table-data">
+                    <ion-label>
+                        {{orden.tipo_orden}}
+                    </ion-label>
+                </ion-col>
+                <ion-col size="3" class="ion-col-table-data">
+                    <ion-label>
+                        {{orden.fch_orden.date}}
+                    </ion-label>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
 
+    <div class="container-img" *ngIf="noResultados">
+        <ion-img src="assets/imgs/noresultado.svg"></ion-img><br>
+        <ion-label class="titulos">No hay resultados</ion-label>
+    </div>
 </ion-content>

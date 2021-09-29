@@ -1,3 +1,4 @@
+/* eslint-disable no-cond-assign */
 import { OnInit } from '@angular/core';
 /* eslint-disable no-var */
 /* eslint-disable no-trailing-spaces */
@@ -18,9 +19,9 @@ import { OnInit } from '@angular/core';
 /* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/member-ordering */
 /* eslint-disable @typescript-eslint/no-inferrable-types */
-import { Component, ViewChild} from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
-import { ModalController, ToastController } from '@ionic/angular';
+import { AlertController, LoadingController, ModalController, ToastController } from '@ionic/angular';
 import { ProviderService } from 'src/app/services/provider.service';
 import { DataService } from 'src/app/services/data.service';
 import { StorageService } from 'src/app/services/storage.service';
@@ -31,9 +32,9 @@ import { SignaturePad } from 'angular2-signaturepad';
   templateUrl: './modal-nueva-orden.page.html',
   styleUrls: ['./modal-nueva-orden.page.scss'],
 })
-export class ModalNuevaOrdenPage implements  OnInit {
+export class ModalNuevaOrdenPage implements OnInit {
   @ViewChild(SignaturePad) signaturePad: SignaturePad;
-  signatureImg : string;
+  signatureImg: string;
   signaturePadOptions: Object = {
     'minWidth': 1,
     'canvasWidth': 300,
@@ -68,7 +69,9 @@ export class ModalNuevaOrdenPage implements  OnInit {
     private provider: ProviderService,
     private dataService: DataService,
     private storage: StorageService,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private alertController: AlertController,
+    private loadingController: LoadingController
   ) {
     this.informacion_orden.sensor_boton = '0';
     this.informacion_orden.sensor_buzzer = '0';
@@ -85,7 +88,7 @@ export class ModalNuevaOrdenPage implements  OnInit {
 
   public form = [
     {
-      val: 'Preventivo', isChecked: false
+      val: 'Preventiva', isChecked: false
     },
     {
       val: 'Correctivo', isChecked: false
@@ -110,14 +113,16 @@ export class ModalNuevaOrdenPage implements  OnInit {
     this.perfil = this.storage.perfil;
   }
 
+  dataUrl: any;
   drawComplete() {
     // will be notified of szimek/signature_pad's onEnd event
-    console.log(this.signaturePad.toDataURL());
+    this.dataUrl = this.signaturePad.toDataURL();
   }
 
+  dataDraw: any;
   drawStart() {
     // will be notified of szimek/signature_pad's onBegin event
-    console.log('begin drawing');
+    this.dataDraw = 'Dibujo listo';
   }
 
   clearPad() {
@@ -130,10 +135,43 @@ export class ModalNuevaOrdenPage implements  OnInit {
   }
   //Termina codigo firma
 
-  cerrar() {
-    this.modalController.dismiss();
+  async cerrar() {
+    const alert = await this.alertController.create({
+      header: 'Confirmación',
+      message: '¿Está seguro de cancelar el registro de esta orden?',
+      mode: 'ios',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel'
+        }, {
+          text: 'Aceptar',
+          handler: () => {
+            this.cargandoCierre();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
+  async cargandoCierre() {
+    const loading = await this.loadingController.create({
+      cssClass: 'alert-style',
+      message: 'Espere un momento...',
+      duration: 2000,
+      spinner: 'bubbles'
+    });
+    await loading.present();
+    setTimeout(() => {
+      this.modalController.dismiss();
+      this.storage.remove('vehiculo');
+    }, 1500);
+  }
+
+
+  e: any;
   ubicacion() {
     this.geolocation.getCurrentPosition({
       timeout: 10000,
@@ -141,10 +179,26 @@ export class ModalNuevaOrdenPage implements  OnInit {
     }).then((res) => {
       this.latitud = res.coords.latitude;
       this.longitud = res.coords.longitude;
-      console.log(this.latitud, this.longitud);
     }).catch((e) => {
-      console.log(e);
+      this.e = e;
+      this.errorUbicacion(this.e);
     });
+  }
+
+  async errorUbicacion(e) {
+    const toast = await this.toastController.create({
+      message: e,
+      position: 'top',
+      color: 'danger',
+      duration: 3000,
+      buttons: [
+        {
+          side: 'start',
+          icon: 'skull',
+        }
+      ]
+    });
+    await toast.present();
   }
 
   servicios: any;
@@ -174,7 +228,6 @@ export class ModalNuevaOrdenPage implements  OnInit {
     };
     this.provider.cargarSensoresCaja(body, 'db_cargar_sensores_remolque.php').subscribe((data) => {
       this.sensoresCaja = data.result;
-      console.log(this.sensoresCaja);
     });
   }
 
@@ -198,8 +251,12 @@ export class ModalNuevaOrdenPage implements  OnInit {
     this.card5 = false;
   }
 
+  b: any;
   mostrarCard4() {
-    if (this.informacion_orden.tipo_vehiculo == 'Tractocamion') {
+    if (this.informacion_orden.tipo_orden == '') {
+      this.b = 'Debe seleccionar un tipo de mantenimiento...'
+      this.toastTipoVehiculo(this.b);
+    } else if (this.informacion_orden.tipo_vehiculo == 'Tractocamion') {
       this.card4 = true;
       this.card1 = false;
       this.card2 = false;
@@ -216,24 +273,132 @@ export class ModalNuevaOrdenPage implements  OnInit {
     }
   }
 
+  async toastTipoVehiculo(b) {
+    const toast = await this.toastController.create({
+      message: b,
+      position: 'bottom',
+      color: 'red',
+      cssClass: 'toast-style',
+      duration: 2000,
+      buttons: [
+        {
+          side: 'end',
+          icon: 'construct'
+        }
+      ]
+    });
+    await toast.present();
+  }
+
   mostrarCard5() {
-    this.card6 = true;
-    this.card1 = false;
-    this.card2 = false;
-    this.card3 = false;
-    this.card4 = false;
-    this.card5 = false;
-    this.card7 = false;
+    if (this.informacion_orden.ubicacion_servicio == '') {
+      this.toastServicio();
+    } else if (this.informacion_orden.servicio_realizado == '') {
+      this.toastTipoServicio();
+    } else if (this.sensores == undefined) {
+      this.toastTipoSensor();
+    } else {
+      this.card6 = true;
+      this.card1 = false;
+      this.card2 = false;
+      this.card3 = false;
+      this.card4 = false;
+      this.card5 = false;
+      this.card7 = false;
+    }
+  }
+
+  async toastServicio() {
+    const toast = await this.toastController.create({
+      message: 'Debe seleccionar la ubicación en donde se realizo el servicio...',
+      position: 'bottom',
+      color: 'red',
+      duration: 2000,
+      cssClass: 'toast-style',
+      buttons: [
+        {
+          side: 'end',
+          icon: 'locate'
+        }
+      ]
+    });
+    await toast.present();
+  }
+
+  async toastTipoServicio() {
+    const toast = await this.toastController.create({
+      message: 'Debe seleccionar el tipo de servicio que se realizo ó realizara...',
+      position: 'bottom',
+      color: 'red',
+      duration: 2000,
+      cssClass: 'toast-style',
+      buttons: [
+        {
+          side: 'end',
+          icon: 'build'
+        }
+      ]
+    });
+    await toast.present();
+  }
+
+  async toastTipoSensor() {
+    const toast = await this.toastController.create({
+      message: 'Debe seleccionar al menos un tipo de sensor...',
+      position: 'bottom',
+      color: 'red',
+      duration: 2000,
+      cssClass: 'toast-style',
+      buttons: [
+        {
+          side: 'end',
+          icon: 'hardware-chip'
+        }
+      ]
+    });
+    await toast.present();
+  }
+
+  async alertComentario() {
+    const alert = await this.alertController.create({
+      header: 'Confirmación',
+      message: '¿Está seguro de no ingresar un comentario?',
+      mode: 'ios',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+        }, {
+          text: 'Continuar',
+          handler: () => {
+            this.informacion_orden.observaciones = 'Sin observaciones...'
+            this.card7 = true;
+            this.card1 = false;
+            this.card2 = false;
+            this.card3 = false;
+            this.card4 = false;
+            this.card5 = false;
+            this.card6 = false;
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
   mostrarCard6() {
-    this.card7 = true;
-    this.card1 = false;
-    this.card2 = false;
-    this.card3 = false;
-    this.card4 = false;
-    this.card5 = false;
-    this.card6 = false;
+    if(this.informacion_orden.observaciones == ''){
+      this.alertComentario();
+    }else {
+      this.card7 = true;
+            this.card1 = false;
+            this.card2 = false;
+            this.card3 = false;
+            this.card4 = false;
+            this.card5 = false;
+            this.card6 = false;
+    }
   }
 
   responseData: any;
@@ -440,9 +605,10 @@ export class ModalNuevaOrdenPage implements  OnInit {
   }
 
 
+  dataResponseOrden: any;
   guardarNota() {
     this.informacion_orden.status_orden = '1';
-    if(this.informacion_orden.firma == ''){
+    if (this.informacion_orden.firma == '') {
       this.a = 'Es necesario firmar la orden...';
       this.toastValidarInformacion(this.a);
     } else {
@@ -480,12 +646,86 @@ export class ModalNuevaOrdenPage implements  OnInit {
         firma: this.informacion_orden.firma,
         status_orden: this.informacion_orden.status_orden
       }
-      console.log(body);
       this.provider.registrarOrdenes(body, 'db_registrar_ordenes.php').subscribe((data) => {
-        console.log(data);
+        this.dataResponseOrden = data.success;
+        console.log(this.dataResponseOrden);
+        if(this.dataResponseOrden == 'false'){
+          //this.loadingServicioError();
+          console.log('mal');
+        } else if(this.dataResponseOrden == 'true') {
+          //this.loadingServicioExito();
+          console.log('bien');
+        }
       });
     }
   }
+
+  async loadingServicioError() {
+    const loading = await this.loadingController.create({
+      cssClass: 'alert-style',
+      message: 'Espere un momento...',
+      duration: 2000,
+      mode: 'ios'
+    });
+    await loading.present();
+    setTimeout(() => {
+      this.toastError();
+    }, 500);
+  }
+
+  async loadingServicioExito() {
+    const loading = await this.loadingController.create({
+      cssClass: 'alert-style',
+      message: 'Espere un momento...',
+      duration: 2000,
+      mode: 'ios'
+    });
+    await loading.present();
+    setTimeout(() => {
+      this.toastExito();
+    }, 500);
+  }
+
+
+  async toastError() {
+    const toast = await this.toastController.create({
+      cssClass: 'toast-style',
+      mode: 'ios',
+      message: 'Hubo un error al conectar con el servidor intente más tarde...',
+      position: 'bottom',
+      duration: 2000,
+      color: 'danger',
+      buttons: [
+        {
+          side: 'start',
+          icon: 'skull'
+        }
+      ]
+    });
+    await toast.present();
+    this.modalController.dismiss();
+  }
+
+  async toastExito() {
+    const toast = await this.toastController.create({
+      cssClass: 'toast-style',
+      mode: 'ios',
+      message: 'Se ha registrado su orden...',
+      position: 'bottom',
+      duration: 2000,
+      color: 'success',
+      buttons: [
+        {
+          side: 'start',
+          icon: 'save'
+        }
+      ]
+    });
+    await toast.present();
+    this.modalController.dismiss();
+    this.storage.remove('vehiculo');
+  }
+
 
   async toastValidarInformacion(dataT) {
     const toast = await this.toastController.create({

@@ -72,3 +72,27 @@ ion-skeleton-text {
     //background: rgba(170, 148, 148, 0.349);
     opacity: 1;
 }
+
+.container-img {
+    text-align: center;
+    position: absolute;
+    top: 55%;
+    /* Buscamos el centro horizontal (relativo) del navegador */
+    left: 50%;
+    /* Buscamos el centro vertical (relativo) del navegador */
+    width: 150px;
+    /* Definimos el ancho del objeto a centrar */
+    height: 150px;
+    /* Definimos el alto del objeto a centrar */
+    margin-top: -75px;
+    /* Restamos la mitad de la altura del objeto con un margin-top */
+    margin-left: -75px;
+    /* Restamos la mitad de la anchura del objeto con un margin-left */
+}
+
+ion-refresher ion-refresher-content {
+    background: rgb(243, 39, 53);
+    background: linear-gradient( 287deg, rgba(243, 39, 53, 0.4962359943977591) 0%, rgba(0, 46, 109, 0.7287289915966386) 100%);
+    font-size: 12px;
+    font-size: 'Conv_Montserrat-Medium';
+}
