@@ -19,7 +19,7 @@
         <h2 class="titulos">Detalle de orden de mantenimiento {{informacion_orden.tipo_orden}}</h2>
     </ion-row>
     <ion-grid>
-        <h4 class="titulos">Información de orden</h4>
+        <h4 class="titulos">Información de la orden</h4>
         <ion-row>
             <ion-col size="12">
                 <ion-item>
@@ -38,12 +38,41 @@
                         <ion-col size="6">
                             <ion-input value="{{informacion_orden.ubicacion_servicio}}" readonly></ion-input>
                         </ion-col>
-                        <ion-col size="6">
+                        <ion-col size="6" class="ion-text-end">
                             <ion-button color="medium" (click)="comoLlegarU()">
                                 <ion-icon name="locate"></ion-icon>
                             </ion-button>
                         </ion-col>
                     </ion-row>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="6">
+                <ion-item>
+                    <ion-label position="floating">Nombre técnico</ion-label>
+                    <ion-input value="{{informacion_orden.nombre}}" readonly></ion-input>
+                </ion-item>
+            </ion-col>
+            <ion-col>
+                <ion-item>
+                    <ion-avatar>
+                        <img src="{{server + informacion_orden.foto}}">
+                    </ion-avatar>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="6">
+                <ion-item>
+                    <ion-label position="floating">Apellido materno</ion-label>
+                    <ion-input value="{{informacion_orden.apellido_materno}}" readonly></ion-input>
+                </ion-item>
+            </ion-col>
+            <ion-col size="6">
+                <ion-item>
+                    <ion-label position="floating">Apellido paterno</ion-label>
+                    <ion-input value="{{informacion_orden.apellido_paterno}}" readonly></ion-input>
                 </ion-item>
             </ion-col>
         </ion-row>
@@ -214,6 +243,16 @@
                 <ion-item>
                     <ion-label>{{informacion_orden.servicio_realizado}}</ion-label>
                 </ion-item>
+            </ion-col>
+        </ion-row>
+        <h4 class="titulos">Firma técnico</h4>
+        <ion-row>
+            <ion-col size="12">
+                <ion-card>
+                    <ion-card-content class="ion-text-center">
+                        <ion-img src="{{server + informacion_orden.firma}}"></ion-img>
+                    </ion-card-content>
+                </ion-card>
             </ion-col>
         </ion-row>
     </ion-grid>

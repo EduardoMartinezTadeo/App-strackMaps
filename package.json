@@ -40,7 +40,6 @@
     "@ionic/storage-angular": "^3.0.6",
     "angular2-signaturepad": "^3.0.4",
     "animate.css": "^4.1.1",
-    "cordova-android": "9.1.0",
     "cordova-plugin-camera": "^5.0.0",
     "ng2-validation": "^4.2.0",
     "rxjs": "~6.6.0",
@@ -115,8 +114,6 @@
       "cordova-plugin-geolocation": {},
       "cordova-plugin-inappbrowser": {}
     },
-    "platforms": [
-      "android"
-    ]
+    "platforms": []
   }
 }

@@ -1,3 +1,4 @@
+import { ModalNuevaOrdenPage } from './../modals/modal-nueva-orden/modal-nueva-orden.page';
 /* eslint-disable max-len */
 /* eslint-disable no-fallthrough */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
@@ -8,7 +9,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { LoadingController, NavController, ToastController } from '@ionic/angular';
+import { LoadingController, ModalController, NavController, ToastController } from '@ionic/angular';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { StorageService } from './storage.service';
@@ -25,7 +26,8 @@ export class DataService {
     private http: HttpClient,
     private loadingController: LoadingController,
     private storage: StorageService,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private modalCtrl: ModalController
   ) { }
 
   result: any;
@@ -189,5 +191,16 @@ export class DataService {
       ]
     });
     await toast.present();
+    setTimeout(() => {
+      this.modalCtrl.dismiss();
+      this.nuevaOrden();
+    }, 1500);
+  }
+
+  async nuevaOrden() {
+    const modal = await this.modalCtrl.create({
+      component: ModalNuevaOrdenPage
+    });
+    return await modal.present();
   }
 }

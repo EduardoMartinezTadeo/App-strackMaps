@@ -23,7 +23,6 @@ import { Component, ViewChild } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { AlertController, LoadingController, ModalController, ToastController } from '@ionic/angular';
 import { ProviderService } from 'src/app/services/provider.service';
-import { DataService } from 'src/app/services/data.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { SignaturePad } from 'angular2-signaturepad';
 
@@ -49,14 +48,8 @@ export class ModalNuevaOrdenPage implements OnInit {
   imgRes: any;
   options: any
 
-
-  data_busqueda = {
-    clave: ''
-  }
-
   // eslint-disable-next-line @typescript-eslint/no-inferrable-types
-  card1: boolean = true;
-  card2: boolean = false;
+  card2: boolean = true;
   card3: boolean = false;
   card4: boolean = false;
   card5: boolean = false;
@@ -67,7 +60,6 @@ export class ModalNuevaOrdenPage implements OnInit {
     private modalController: ModalController,
     private geolocation: Geolocation,
     private provider: ProviderService,
-    private dataService: DataService,
     private storage: StorageService,
     private toastController: ToastController,
     private alertController: AlertController,
@@ -111,6 +103,7 @@ export class ModalNuevaOrdenPage implements OnInit {
     this.cargarAditamientos();
     this.cargarSensoresCaja();
     this.perfil = this.storage.perfil;
+    this.verificarVehiculo();
   }
 
   dataUrl: any;
@@ -139,6 +132,27 @@ export class ModalNuevaOrdenPage implements OnInit {
     const alert = await this.alertController.create({
       header: 'Confirmación',
       message: '¿Está seguro de cancelar el registro de esta orden?',
+      mode: 'ios',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel'
+        }, {
+          text: 'Aceptar',
+          handler: () => {
+            this.cargandoCierre();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async regresarBusqueda() {
+    const alert = await this.alertController.create({
+      header: 'Confirmación',
+      message: '¿Está seguro de buscar otro vehículo?',
       mode: 'ios',
       buttons: [
         {
@@ -233,18 +247,15 @@ export class ModalNuevaOrdenPage implements OnInit {
 
 
   mostrarCard1() {
-    this.card1 = true;
-    this.card2 = false;
+    this.regresarBusqueda();
   }
 
   mostrarCard2() {
-    this.card1 = false;
     this.card2 = true;
     this.card3 = false;
   }
 
   mostrarCard3() {
-    this.card1 = false;
     this.card2 = false;
     this.card3 = true;
     this.card4 = false;
@@ -258,14 +269,14 @@ export class ModalNuevaOrdenPage implements OnInit {
       this.toastTipoVehiculo(this.b);
     } else if (this.informacion_orden.tipo_vehiculo == 'Tractocamion') {
       this.card4 = true;
-      this.card1 = false;
+
       this.card2 = false;
       this.card3 = false;
       this.card5 = false;
       this.card6 = false;
     } else {
       this.card5 = true;
-      this.card1 = false;
+
       this.card2 = false;
       this.card3 = false;
       this.card4 = false;
@@ -299,7 +310,7 @@ export class ModalNuevaOrdenPage implements OnInit {
       this.toastTipoSensor();
     } else {
       this.card6 = true;
-      this.card1 = false;
+
       this.card2 = false;
       this.card3 = false;
       this.card4 = false;
@@ -373,7 +384,7 @@ export class ModalNuevaOrdenPage implements OnInit {
           handler: () => {
             this.informacion_orden.observaciones = 'Sin observaciones...'
             this.card7 = true;
-            this.card1 = false;
+
             this.card2 = false;
             this.card3 = false;
             this.card4 = false;
@@ -392,7 +403,7 @@ export class ModalNuevaOrdenPage implements OnInit {
       this.alertComentario();
     }else {
       this.card7 = true;
-            this.card1 = false;
+
             this.card2 = false;
             this.card3 = false;
             this.card4 = false;
@@ -401,16 +412,6 @@ export class ModalNuevaOrdenPage implements OnInit {
     }
   }
 
-  responseData: any;
-  buscarTractoCamion() {
-    if (this.data_busqueda.clave == '') {
-      this.informacionVacia();
-    } else {
-      this.dataService.buscarTractocamion(this.data_busqueda.clave).subscribe(data => {
-        this.responseData = data;
-      });
-    }
-  }
 
   data_Vehiculo: any;
   fecha: any;
@@ -426,22 +427,37 @@ export class ModalNuevaOrdenPage implements OnInit {
       } else {
         this.informacion_orden.marca = this.data_Vehiculo.marca;
         this.informacion_orden.imei = this.data_Vehiculo.imei;
-        this.informacion_orden.fch_last_pos = this.data_Vehiculo.fechaPosicion.date;
-        this.fecha = this.informacion_orden.fch_last_pos.split(' ');
-        this.fecha2 = this.fecha[0];
-        this.fecha3 = this.fecha[1];
-        this.fecha4 = this.fecha3.split('.')[0];
-        this.informacion_orden.fecha_posicionFinal = this.fecha2 + ' ' + this.fecha4;
-        this.informacion_orden.placas = this.data_Vehiculo.placas;
-        this.informacion_orden.latitud = this.data_Vehiculo.latitud;
-        this.informacion_orden.longitud = this.data_Vehiculo.longitud;
-        this.informacion_orden.proveedor = this.data_Vehiculo.proveedor;
-        this.informacion_orden.serie = this.data_Vehiculo.serie;
-        this.informacion_orden.tecnico = this.perfil.id;
-        this.informacion_orden.usr_crea = this.perfil.id;
-        this.informacion_orden.tipo_vehiculo = this.data_Vehiculo.tipo;
-        this.informacion_orden.unidad = this.data_Vehiculo.unidad;
-        this.mostrarCard2();
+        console.log(this.data_Vehiculo.fechaPosicion);
+        if(this.data_Vehiculo.fechaPosicion == null){
+          this.informacion_orden.fecha_posicionFinal = 'Sin registro';
+          this.informacion_orden.placas = this.data_Vehiculo.placas;
+          this.informacion_orden.latitud = this.data_Vehiculo.latitud;
+          this.informacion_orden.longitud = this.data_Vehiculo.longitud;
+          this.informacion_orden.proveedor = this.data_Vehiculo.proveedor;
+          this.informacion_orden.serie = this.data_Vehiculo.serie;
+          this.informacion_orden.tecnico = this.perfil.id;
+          this.informacion_orden.usr_crea = this.perfil.id;
+          this.informacion_orden.tipo_vehiculo = this.data_Vehiculo.tipo;
+          this.informacion_orden.unidad = this.data_Vehiculo.unidad;
+          this.mostrarCard2();
+        } else {
+          this.informacion_orden.fch_last_pos = this.data_Vehiculo.fechaPosicion.date;
+          this.fecha = this.informacion_orden.fch_last_pos.split(' ');
+          this.fecha2 = this.fecha[0];
+          this.fecha3 = this.fecha[1];
+          this.fecha4 = this.fecha3.split('.')[0];
+          this.informacion_orden.fecha_posicionFinal = this.fecha2 + ' ' + this.fecha4;
+          this.informacion_orden.placas = this.data_Vehiculo.placas;
+          this.informacion_orden.latitud = this.data_Vehiculo.latitud;
+          this.informacion_orden.longitud = this.data_Vehiculo.longitud;
+          this.informacion_orden.proveedor = this.data_Vehiculo.proveedor;
+          this.informacion_orden.serie = this.data_Vehiculo.serie;
+          this.informacion_orden.tecnico = this.perfil.id;
+          this.informacion_orden.usr_crea = this.perfil.id;
+          this.informacion_orden.tipo_vehiculo = this.data_Vehiculo.tipo;
+          this.informacion_orden.unidad = this.data_Vehiculo.unidad;
+          this.mostrarCard2();
+        }
       }
     }, 500);
   }
@@ -462,21 +478,6 @@ export class ModalNuevaOrdenPage implements OnInit {
     toast.present();
   }
 
-  async informacionVacia() {
-    const toast = await this.toastController.create({
-      message: 'El número ECO no puede ir vacio...',
-      duration: 2000,
-      color: 'danger',
-      cssClass: 'toast-style',
-      buttons: [
-        {
-          side: 'end',
-          icon: 'close-circle-outline',
-        }
-      ]
-    });
-    toast.present();
-  }
 
   informacion_orden = {
     unidad: '',
