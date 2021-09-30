@@ -1,0 +1,220 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-row class="ion-align-items-center">
+            <ion-col size="6">
+                <ion-img src="assets/imgs/logo_blanco.png"></ion-img>
+            </ion-col>
+            <ion-col size="6">
+                <ion-item lines="none">
+                    <ion-button slot="end" fill="clear" (click)="cerrar()">
+                        <ion-icon name="close-circle" color="iconos"></ion-icon>
+                    </ion-button>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+    </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+    <ion-row>
+        <h2 class="titulos">Detalle de orden de mantenimiento {{informacion_orden.tipo_orden}}</h2>
+    </ion-row>
+    <ion-grid>
+        <h4 class="titulos">Información de orden</h4>
+        <ion-row>
+            <ion-col size="12">
+                <ion-item>
+                    <ion-label position="floating">Fecha de registro de orden</ion-label>
+                    <ion-input value="{{informacion_orden.fch_orden}}"></ion-input>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="12">
+                <ion-item>
+                    <ion-label position="floating">
+                        Ubicación del servicio
+                    </ion-label>
+                    <ion-row>
+                        <ion-col size="6">
+                            <ion-input value="{{informacion_orden.ubicacion_servicio}}" readonly></ion-input>
+                        </ion-col>
+                        <ion-col size="6">
+                            <ion-button color="medium" (click)="comoLlegarU()">
+                                <ion-icon name="locate"></ion-icon>
+                            </ion-button>
+                        </ion-col>
+                    </ion-row>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <h4 class="titulos">Información del vehículo</h4>
+        <ion-row>
+            <ion-col size="6">
+                <ion-item>
+                    <ion-label position="floating">
+                        Tipo de vehiculo
+                    </ion-label>
+                    <ion-input value="{{informacion_orden.tipo_vehiculo}}" readonly></ion-input>
+                </ion-item>
+            </ion-col>
+            <ion-col size="6">
+                <ion-item>
+                    <ion-label position="floating">
+                        Unidad
+                    </ion-label>
+                    <ion-input value="{{informacion_orden.unidad}}" readonly></ion-input>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="6">
+                <ion-item>
+                    <ion-label position="floating">
+                        Marca
+                    </ion-label>
+                    <ion-input value="{{informacion_orden.marca}}" readonly></ion-input>
+                </ion-item>
+            </ion-col>
+            <ion-col size="6">
+                <ion-item>
+                    <ion-label position="floating">
+                        Placas
+                    </ion-label>
+                    <ion-input value="{{informacion_orden.placas}}" readonly></ion-input>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="6">
+                <ion-item>
+                    <ion-label position="floating">
+                        Num. Serie
+                    </ion-label>
+                    <ion-input value="{{informacion_orden.serie}}" readonly></ion-input>
+                </ion-item>
+            </ion-col>
+            <ion-col size="6">
+                <ion-item>
+                    <ion-label position="floating">
+                        Imei
+                    </ion-label>
+                    <ion-input value="{{informacion_orden.imei}}" readonly></ion-input>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="12">
+                <ion-item>
+                    <ion-label position="floating">
+                        Proveedor
+                    </ion-label>
+                    <ion-input value="{{informacion_orden.proveedor}}" readonly></ion-input>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="12">
+                <ion-item>
+                    <ion-label position="floating">Fecha Ultima ubicación</ion-label>
+                    <ion-input value="{{informacion_orden.fch_last_pos}}" readonly></ion-input>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="12">
+                <ion-item>
+                    <ion-label>Ultima ubicación conocida</ion-label>
+                    <ion-button color="medium" (click)="comoLlegar()">
+                        <ion-icon name="locate"></ion-icon>
+                    </ion-button>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <h4 class="titulos">Sensores o aditamentos revisados</h4>
+        <ion-row *ngIf="sensor1">
+            <ion-col size="12">
+                <ion-item>
+                    <ion-label>Botón de pánico</ion-label>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row *ngIf="sensor2">
+            <ion-col size="12">
+                <ion-item>
+                    <ion-label>Buzzer</ion-label>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row *ngIf="sensor3">
+            <ion-col size="12">
+                <ion-item>
+                    <ion-label>Apertura de cabina</ion-label>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row *ngIf="sensor4">
+            <ion-col size="12">
+                <ion-item>
+                    <ion-label>Apertura de caja</ion-label>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row *ngIf="sensor5">
+            <ion-col size="12">
+                <ion-item>
+                    <ion-label>Sensores de combustible</ion-label>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row *ngIf="sensor6">
+            <ion-col size="12">
+                <ion-item>
+                    <ion-label>Corta-corriente</ion-label>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row *ngIf="sensor7">
+            <ion-col size="12">
+                <ion-item>
+                    <ion-label>Driver ID</ion-label>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row *ngIf="sensor8">
+            <ion-col size="12">
+                <ion-item>
+                    <ion-label>Sensor encendido</ion-label>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row size="12" *ngIf="sensor9">
+            <ion-col>
+                <ion-item>
+                    <ion-label>Paro seguro</ion-label>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row size="12" *ngIf="sensor10">
+            <ion-col>
+                <ion-item>
+                    <ion-label>Sensores de temperatura</ion-label>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row *ngIf="sensor11">
+            <ion-col size="12">
+                <ion-item>
+                    <ion-label>Sensor toma fuerza</ion-label>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <h4 class="titulos">Servicio realizado</h4>
+        <ion-row>
+            <ion-col size="12">
+                <ion-item>
+                    <ion-label>{{informacion_orden.servicio_realizado}}</ion-label>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

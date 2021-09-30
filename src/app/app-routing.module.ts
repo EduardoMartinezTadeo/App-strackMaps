@@ -35,6 +35,10 @@ const routes: Routes = [
     path: 'modal-orden-pendiente',
     loadChildren: () => import('./modals/modal-orden-pendiente/modal-orden-pendiente.module').then( m => m.ModalOrdenPendientePageModule)
   },
+  {
+    path: 'modal-detalle',
+    loadChildren: () => import('./modals/modal-detalle/modal-detalle.module').then( m => m.ModalDetallePageModule)
+  },
 ];
 
 @NgModule({

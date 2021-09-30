@@ -1,0 +1,70 @@
+ion-content {
+    --background: linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.1)), url("/assets/imgs/fondo5.jpg") no-repeat center center / cover !important;
+}
+
+ion-header {
+    ion-toolbar {
+        --background: rgb(243, 39, 53);
+        --background: linear-gradient( 302deg, rgba(243, 39, 53, 0.5830707282913166) 0%, rgba(243, 39, 53, 1) 69%);
+    }
+    ion-col {
+        ion-item {
+            --background: transparent;
+            --border-color: var(--ion-color-form, #ffffff);
+            color: #ffffff;
+            ion-button {
+                ion-icon {
+                    font-size: 22px;
+                }
+            }
+        }
+    }
+}
+
+ion-img {
+    margin-top: 5px;
+    margin-left: 15px;
+    width: 95px;
+}
+
+h2 {
+    color: #002e6d;
+}
+
+h4 {
+    color: #000000;
+}
+
+ion-grid {
+    ion-row {
+        ion-col {
+            ion-item {
+                border-radius: 5px;
+                background: transparent !important;
+                opacity: 0.6;
+                ion-label {
+                    font-family: 'Conv_Montserrat-Medium';
+                    font-size: 13px;
+                    color: rgb(0, 0, 0);
+                }
+                ion-input {
+                    font-family: 'Conv_Montserrat-Regular';
+                    font-size: 12px;
+                    color: rgb(0, 0, 0);
+                }
+            }
+        }
+    }
+    ion-row {
+        ion-item {
+            border-radius: 5px;
+            opacity: 0.6;
+            background: transparent !important;
+            s ion-label {
+                font-family: 'Conv_Montserrat-Medium';
+                font-size: 13px;
+                color: rgb(0, 0, 0);
+            }
+        }
+    }
+}

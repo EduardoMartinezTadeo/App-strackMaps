@@ -89,3 +89,22 @@ ion-slides {
         }
     }
 }
+
+ion-grid {
+    ion-row {
+        ion-col {
+            ion-item {
+                ion-label {
+                    color: #000000 !important;
+                }
+                ion-input {
+                    color: #000000 !important;
+                }
+            }
+        }
+    }
+}
+
+h2 {
+    color: #002e6d;
+}

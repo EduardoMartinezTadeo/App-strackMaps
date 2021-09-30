@@ -11,7 +11,8 @@ export const environment = {
   apicargarSensoresCaja: 'http://supertrack-net.ddns.net:50371/v1/server_strackMaps/api/db_cargar_sensores_remolque.php/',
   apiregistrarOrden: 'http://supertrack-net.ddns.net:50371/v1/server_strackMaps/api/db_registrar_ordenes.php/',
   apicargarOrdenes: 'http://supertrack-net.ddns.net:50371/v1/server_strackMaps/api/db_cargar_ordenes.php/',
-  apiactualizarFoto: 'http://supertrack-net.ddns.net:50371/v1/server_strackMaps/api/db_actualizar_foto_perfil.php/'
+  apiactualizarFoto: 'http://supertrack-net.ddns.net:50371/v1/server_strackMaps/api/db_actualizar_foto_perfil.php/',
+  apicargarDetalle: 'http://supertrack-net.ddns.net:50371/v1/server_strackMaps/api/db_cargar_detalle.php/'
 };
 
 /*

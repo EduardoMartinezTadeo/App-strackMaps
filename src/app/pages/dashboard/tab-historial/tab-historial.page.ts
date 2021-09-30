@@ -5,6 +5,8 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable @typescript-eslint/member-ordering */
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { ModalDetallePage } from 'src/app/modals/modal-detalle/modal-detalle.page';
 import { ProviderService } from 'src/app/services/provider.service';
 import { StorageService } from 'src/app/services/storage.service';
 
@@ -17,7 +19,8 @@ export class TabHistorialPage implements OnInit {
 
   constructor(
     private storage: StorageService,
-    private provider: ProviderService
+    private provider: ProviderService,
+    private modalController: ModalController
   ) { }
 
   noResultados: boolean = false;
@@ -153,5 +156,17 @@ export class TabHistorialPage implements OnInit {
       this.ngOnInit();
       event.target.complete();
     }, 1500);
+  }
+
+  consecutivo: string;
+  async obtenerConsecutivo(data){
+    this.consecutivo = data;
+    const modal = await this.modalController.create({
+      component: ModalDetallePage,
+      componentProps: {
+        datos: this.consecutivo
+      },
+    });
+    await modal.present();
   }
 }

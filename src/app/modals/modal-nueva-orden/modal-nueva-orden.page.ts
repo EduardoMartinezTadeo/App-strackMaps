@@ -607,11 +607,11 @@ export class ModalNuevaOrdenPage implements OnInit {
 
   dataResponseOrden: any;
   guardarNota() {
-    this.informacion_orden.status_orden = '1';
-    if (this.informacion_orden.firma == '') {
+    if (this.informacion_orden.firma == "") {
       this.a = 'Es necesario firmar la orden...';
       this.toastValidarInformacion(this.a);
     } else {
+      this.informacion_orden.status_orden = '1';
       let body = {
         strackMaps: 'registrarOrden',
         unidad: this.informacion_orden.unidad,
@@ -649,12 +649,18 @@ export class ModalNuevaOrdenPage implements OnInit {
       this.provider.registrarOrdenes(body, 'db_registrar_ordenes.php').subscribe((data) => {
         this.dataResponseOrden = data.success;
         console.log(this.dataResponseOrden);
-        if(this.dataResponseOrden == 'false'){
-          //this.loadingServicioError();
-          console.log('mal');
-        } else if(this.dataResponseOrden == 'true') {
-          //this.loadingServicioExito();
-          console.log('bien');
+        switch(this.dataResponseOrden) {
+          case 'false': {
+            this.loadingServicioExito();
+            break;
+          }
+          case 'true': {
+            this.loadingServicioExito();
+            break;
+          }
+          default: {
+            this.loadingServicioExito();
+          }
         }
       });
     }
