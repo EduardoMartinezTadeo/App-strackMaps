@@ -46,7 +46,13 @@ export class ModalNuevaOrdenPage implements OnInit {
   firmaBase;
   a: any;
   imgRes: any;
-  options: any
+  options: any;
+  fechaCorta = new Date().toISOString();
+  fechaPosicion: any;
+  fechaSeparacionP1: any;
+  fechaSeparacionP2: any;
+  fechaSeparacionP3: any;
+  fechaPosicionFinal: any;
 
   // eslint-disable-next-line @typescript-eslint/no-inferrable-types
   card2: boolean = true;
@@ -102,8 +108,15 @@ export class ModalNuevaOrdenPage implements OnInit {
     this.cargarServicios();
     this.cargarAditamientos();
     this.cargarSensoresCaja();
+    this.cargarBases();
     this.perfil = this.storage.perfil;
     this.verificarVehiculo();
+    this.fechaPosicion = this.fechaCorta;
+    this.fechaSeparacionP1 = this.fechaPosicion.split('.')[0];
+    this.fechaSeparacionP2 = this.fechaSeparacionP1.split('T')[0];
+    this.fechaSeparacionP3 = this.fechaSeparacionP1.split('T')[1];
+    this.fechaPosicionFinal = (this.fechaSeparacionP2 + ' ' + this.fechaSeparacionP3);
+    console.log(this.fechaPosicionFinal);
   }
 
   dataUrl: any;
@@ -399,16 +412,16 @@ export class ModalNuevaOrdenPage implements OnInit {
   }
 
   mostrarCard6() {
-    if(this.informacion_orden.observaciones == ''){
+    if (this.informacion_orden.observaciones == '') {
       this.alertComentario();
-    }else {
+    } else {
       this.card7 = true;
 
-            this.card2 = false;
-            this.card3 = false;
-            this.card4 = false;
-            this.card5 = false;
-            this.card6 = false;
+      this.card2 = false;
+      this.card3 = false;
+      this.card4 = false;
+      this.card5 = false;
+      this.card6 = false;
     }
   }
 
@@ -427,9 +440,9 @@ export class ModalNuevaOrdenPage implements OnInit {
       } else {
         this.informacion_orden.marca = this.data_Vehiculo.marca;
         this.informacion_orden.imei = this.data_Vehiculo.imei;
-        console.log(this.data_Vehiculo.fechaPosicion);
-        if(this.data_Vehiculo.fechaPosicion == null){
-          this.informacion_orden.fecha_posicionFinal = 'Sin registro';
+        if (this.data_Vehiculo.fechaPosicion == null) {
+          this.informacion_orden.fch_last_pos = this.fechaPosicion;
+          this.informacion_orden.fecha_posicionFinal = this.fechaPosicion;
           this.informacion_orden.placas = this.data_Vehiculo.placas;
           this.informacion_orden.latitud = this.data_Vehiculo.latitud;
           this.informacion_orden.longitud = this.data_Vehiculo.longitud;
@@ -541,35 +554,6 @@ export class ModalNuevaOrdenPage implements OnInit {
     }
   }
 
-  valoresU: any;
-  onClickU(data) {
-    this.valoresU = data;
-    if (this.valoresU.val == 'Local') {
-      this.formUbicacion = [
-        {
-          val: 'Local', isChecked: true
-        },
-        {
-          val: 'Domicilio', isChecked: false
-        }
-      ];
-      this.informacion_orden.ubicacion_servicio = this.valoresU.val;
-      this.informacion_orden.longitud_tecnico = this.longitud;
-      this.informacion_orden.latitud_tecnico = this.latitud;
-    } else {
-      this.formUbicacion = [
-        {
-          val: 'Local', isChecked: false
-        },
-        {
-          val: 'Domicilio', isChecked: true
-        }
-      ];
-      this.informacion_orden.ubicacion_servicio = this.valoresU.val;
-      this.informacion_orden.longitud_tecnico = this.longitud;
-      this.informacion_orden.latitud_tecnico = this.latitud;
-    }
-  }
 
   sensores: any;
   onClickSensores(data) {
@@ -603,6 +587,12 @@ export class ModalNuevaOrdenPage implements OnInit {
   ionChangeServicio(event) {
     this.dataServicio = event.detail.value;
     this.informacion_orden.servicio_realizado = this.dataServicio;
+  }
+
+  dataBases: any;
+  ionChangeBase(event) {
+    this.dataBases = event.detail.value;
+    this.informacion_orden.ubicacion_servicio = this.dataBases;
   }
 
 
@@ -647,12 +637,12 @@ export class ModalNuevaOrdenPage implements OnInit {
         firma: this.informacion_orden.firma,
         status_orden: this.informacion_orden.status_orden
       }
+      console.log(this.informacion_orden);
       this.provider.registrarOrdenes(body, 'db_registrar_ordenes.php').subscribe((data) => {
         this.dataResponseOrden = data.success;
-        console.log(this.dataResponseOrden);
-        switch(this.dataResponseOrden) {
+        switch (this.dataResponseOrden) {
           case 'false': {
-            this.loadingServicioExito();
+            this.loadingServicioError();
             break;
           }
           case 'true': {
@@ -750,6 +740,16 @@ export class ModalNuevaOrdenPage implements OnInit {
       ]
     });
     await toast.present();
+  }
+
+  basesSupertrack: any;
+  cargarBases() {
+    let body = {
+      strackMaps: 'bases'
+    };
+    this.provider.cargarBases(body, 'db_cargar_bases.php').subscribe((data) => {
+      this.basesSupertrack = data.result;
+    });
   }
 
 }

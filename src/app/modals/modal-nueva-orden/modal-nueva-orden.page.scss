@@ -52,6 +52,9 @@ ion-card {
                     font-family: "Conv_Montserrat-Regular" !important;
                 }
             }
+            ion-checkbox {
+                text-transform: capitalize !important;
+            }
         }
     }
 }

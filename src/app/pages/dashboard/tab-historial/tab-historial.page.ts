@@ -1,3 +1,4 @@
+import { LoadingController, ToastController } from '@ionic/angular';
 /* eslint-disable @typescript-eslint/no-inferrable-types */
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable eqeqeq */
@@ -20,7 +21,9 @@ export class TabHistorialPage implements OnInit {
   constructor(
     private storage: StorageService,
     private provider: ProviderService,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private loadingController: LoadingController,
+    private toastController: ToastController
   ) { }
 
   noResultados: boolean = false;
@@ -51,6 +54,8 @@ export class TabHistorialPage implements OnInit {
          this.noResultados = true;
         }
       }, 1500);
+    },error => {
+      this.cargandoServidor();
     });
   }
 
@@ -168,5 +173,37 @@ export class TabHistorialPage implements OnInit {
       },
     });
     await modal.present();
+  }
+
+  async cargandoServidor() {
+    const loading = await this.loadingController.create({
+      cssClass: 'alert-style',
+      message: 'Espere un momento',
+      spinner: 'crescent',
+      duration: 2000
+    });
+    await loading.present();
+    setTimeout(() => {
+      this.toastServer();
+    }, 1500);
+  }
+
+  async toastServer() {
+    const toast = await this.toastController.create({
+      message: 'No se ha logrado establecer conexión con nuestros servidores...',
+      position: 'bottom',
+      color: 'danger',
+      mode: 'ios',
+      buttons: [
+        {
+          side: 'end',
+          icon: 'skull',
+          handler: () => {
+           this.ngOnInit();
+          }
+        }
+      ]
+    });
+    await toast.present();
   }
 }

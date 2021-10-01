@@ -43,7 +43,7 @@
                                 </ion-item>
                             </ion-col>
                         </ion-row>
-                        <ion-row>
+                        <ion-row style="display: none;">
                             <ion-col size="12">
                                 <ion-item>
                                     <ion-label position="floating">Imei</ion-label>
@@ -101,7 +101,7 @@
     </ion-card>
     <ion-card class="card-fondo css-card3" color="primary" *ngIf="card3">
         <ion-card-content>
-            <ion-card>
+            <ion-card color="light">
                 <ion-card-header class="ion-text-center">
                     <h2 class="subtitulo">Tipo de mantenimiento</h2>
                 </ion-card-header>
@@ -133,22 +133,26 @@
     </ion-card>
     <ion-card class="card-fondo css-card4" color="primary" *ngIf="card4">
         <ion-card-content>
-            <ion-card>
+            <ion-card color="light">
                 <ion-card-header class="ion-text-center">
-                    <h2 class="subtitulo">Ubicación del servicio</h2>
+                    <h2 class="subtitulo">Base del servicio</h2>
                 </ion-card-header>
                 <ion-card-content>
                     <ion-row>
                         <ion-col size="12">
-                            <ion-item *ngFor="let ubicacion of formUbicacion" (click)="onClickU(ubicacion)">
-                                <ion-label>{{ubicacion.val}}</ion-label>
-                                <ion-checkbox color="primary" mode="ios" [(ngModel)]="ubicacion.isChecked"></ion-checkbox>
+                            <ion-item>
+                                <ion-label style="color:black">Seleccionar una base</ion-label>
+                                <ion-select mode="ios" okText="Aceptar" cancelText="Cancelar" (ionChange)="ionChangeBase($event)">
+                                    <ion-select-option value="{{ubicacion.nombre}}" *ngFor="let ubicacion of basesSupertrack">
+                                        {{ubicacion.nombre}}
+                                    </ion-select-option>
+                                </ion-select>
                             </ion-item>
                         </ion-col>
                     </ion-row>
                 </ion-card-content>
             </ion-card>
-            <ion-card>
+            <ion-card color="light">
                 <ion-card-header class="ion-text-center">
                     <h2 class="subtitulo">Tipo de servicio</h2>
                 </ion-card-header>
@@ -156,7 +160,7 @@
                     <ion-row>
                         <ion-col size="12">
                             <ion-item>
-                                <ion-label>Seleccionar un servicio</ion-label>
+                                <ion-label style="color:black">Seleccionar un servicio</ion-label>
                                 <ion-select mode="ios" okText="Aceptar" cancelText="Cancelar" (ionChange)="ionChangeServicio($event)">
                                     <ion-select-option value="{{servicio.descripcion_servicio}}" *ngFor="let servicio of servicios">
                                         {{servicio.descripcion_servicio}}
@@ -167,7 +171,7 @@
                     </ion-row>
                 </ion-card-content>
             </ion-card>
-            <ion-card>
+            <ion-card color="light">
                 <ion-card-header class="ion-text-center">
                     <h2 class="subtitulo">Sensores y aditamentos</h2>
                 </ion-card-header>
@@ -175,7 +179,7 @@
                     <ion-row>
                         <ion-col size="12">
                             <ion-item *ngFor="let aditamento of aditamientos">
-                                <ion-label>{{aditamento.nombre_sensor_aditamiento}}</ion-label>
+                                <ion-label style="color:black">{{aditamento.nombre_sensor_aditamiento}}</ion-label>
                                 <ion-checkbox mode="ios" (click)="onClickSensores(aditamento)"></ion-checkbox>
                             </ion-item>
                         </ion-col>
@@ -200,22 +204,26 @@
 
     <ion-card class="card-fondo css-card4" color="primary" *ngIf="card5">
         <ion-card-content>
-            <ion-card>
+            <ion-card color="light">
                 <ion-card-header class="ion-text-center">
-                    <h2 class="subtitulo">Ubicación del servicio</h2>
+                    <h2 class="subtitulo">Base del servicio</h2>
                 </ion-card-header>
                 <ion-card-content>
                     <ion-row>
                         <ion-col size="12">
-                            <ion-item *ngFor="let ubicacion of formUbicacion" (click)="onClickU(ubicacion)">
-                                <ion-label>{{ubicacion.val}}</ion-label>
-                                <ion-checkbox color="primary" mode="ios" [(ngModel)]="ubicacion.isChecked"></ion-checkbox>
+                            <ion-item>
+                                <ion-label style="color:black">Seleccionar una base</ion-label>
+                                <ion-select mode="ios" okText="Aceptar" cancelText="Cancelar" (ionChange)="ionChangeBase($event)">
+                                    <ion-select-option value="{{ubicacion.nombre}}" *ngFor="let ubicacion of basesSupertrack">
+                                        {{ubicacion.nombre}}
+                                    </ion-select-option>
+                                </ion-select>
                             </ion-item>
                         </ion-col>
                     </ion-row>
                 </ion-card-content>
             </ion-card>
-            <ion-card>
+            <ion-card color="light">
                 <ion-card-header class="ion-text-center">
                     <h2 class="subtitulo">Tipo de servicio</h2>
                 </ion-card-header>
@@ -223,9 +231,9 @@
                     <ion-row>
                         <ion-col size="12">
                             <ion-item>
-                                <ion-label>Seleccionar un servicio</ion-label>
+                                <ion-label style="color:black">Seleccionar un servicio</ion-label>
                                 <ion-select mode="ios" okText="Aceptar" cancelText="Cancelar" (ionChange)="ionChangeServicio($event)">
-                                    <ion-select-option value="{{servicio.descripcion_servicio}}" *ngFor="let servicio of servicios">
+                                    <ion-select-option style="color:black" value="{{servicio.descripcion_servicio}}" *ngFor="let servicio of servicios">
                                         {{servicio.descripcion_servicio}}
                                     </ion-select-option>
                                 </ion-select>
@@ -234,7 +242,7 @@
                     </ion-row>
                 </ion-card-content>
             </ion-card>
-            <ion-card>
+            <ion-card color="light">
                 <ion-card-header class="ion-text-center">
                     <h2 class="subtitulo">Sensores y aditamentos</h2>
                 </ion-card-header>
@@ -242,7 +250,7 @@
                     <ion-row>
                         <ion-col size="12">
                             <ion-item *ngFor="let aditamento of sensoresCaja">
-                                <ion-label>{{aditamento.nombre_sensor_aditamiento}}</ion-label>
+                                <ion-label style="color:black">{{aditamento.nombre_sensor_aditamiento}}</ion-label>
                                 <ion-checkbox mode="ios" (click)="onClickSensores(aditamento)"></ion-checkbox>
                             </ion-item>
                         </ion-col>
@@ -267,7 +275,7 @@
 
     <ion-card class="card-fondo css-card5" color="primary" *ngIf="card6">
         <ion-card-content>
-            <ion-card>
+            <ion-card color="light">
                 <ion-card-header>
                     <h2 class="subtitulo ion-text-center">Comentarios</h2>
                 </ion-card-header>
@@ -292,9 +300,9 @@
         </ion-card-content>
     </ion-card>
 
-    <ion-card class="card-fondo css-card2" color="primary" *ngIf="card8">
+    <!-- <ion-card class="card-fondo css-card2" color="primary" *ngIf="card8">
         <ion-card-content>
-            <ion-card>
+            <ion-card color="light">
                 <ion-card-header>
                     <h2 class="subtitulo ion-text-center">Evidencias</h2>
                 </ion-card-header>
@@ -316,17 +324,18 @@
                 </ion-card-content>
             </ion-card>
         </ion-card-content>
-    </ion-card>
+    </ion-card> -->
 
     <ion-card class="card-fondo css-card1" color="primary" *ngIf="card7">
         <ion-card-content>
-            <ion-card>
+            <ion-card color="light">
                 <ion-card-header>
                     <h2 class="subtitulo ion-text-center">Firma Técnico</h2>
                 </ion-card-header>
                 <ion-card-content>
                     <div class="signature-container">
-                        <signature-pad [options]="signaturePadOptions" (onBeginEvent)="drawStart()" (onEndEvent)="drawComplete()"></signature-pad>
+                        <signature-pad [options]="signaturePadOptions" (onBeginEvent)="drawStart()" (onEndEvent)="drawComplete()">
+                        </signature-pad>
                     </div>
                     <img src='{{ signatureImg }}' style="display: none;" />
                     <ion-row>

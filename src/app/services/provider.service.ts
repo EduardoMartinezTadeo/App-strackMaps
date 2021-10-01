@@ -11,6 +11,7 @@ const apicargarOrdenesURL = environment.apicargarOrdenes;
 const apiactualizarFotoPerfilURL = environment.apiactualizarFoto;
 const apiregistrarOrdenesURL = environment.apiregistrarOrden;
 const apicargarDetalleURL = environment.apicargarDetalle;
+const apicargarBasesURL = environment.apicargarBases;
 
 @Injectable({
   providedIn: 'root'
@@ -78,6 +79,14 @@ export class ProviderService {
     });
 
     return this.http.post<any>(apicargarDetalleURL + file, body, { headers });
+  }
+
+  cargarBases(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json; charset=UTF-8',
+    });
+
+    return this.http.post<any>(apicargarBasesURL + file, body, { headers });
   }
 
 }

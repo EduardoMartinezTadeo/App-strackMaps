@@ -8,5 +8,6 @@ export const environment = {
   apiregistrarOrden: 'http://supertrack-net.ddns.net:50371/v1/server_strackMaps/api/db_registrar_orden.php/',
   apicargarOrdenes: 'http://supertrack-net.ddns.net:50371/v1/server_strackMaps/api/db_cargar_ordenes.php/',
   apiactualizarFoto: 'http://supertrack-net.ddns.net:50371/v1/server_strackMaps/api/db_actualizar_foto_perfil.php/',
-  apicargarDetalle: 'http://supertrack-net.ddns.net:50371/v1/server_strackMaps/api/db_cargar_detalle.php/'
+  apicargarDetalle: 'http://supertrack-net.ddns.net:50371/v1/server_strackMaps/api/db_cargar_detalle.php/',
+  apicargarBases: 'http://supertrack-net.ddns.net:50371/v1/server_strackMaps/api/db_cargar_bases.php/'
 };
